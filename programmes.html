@@ -6,74 +6,119 @@
   - Keep i18n keys for headings; content is sample content for you to update.
 -->
 
+<!-- programmes.html
+     Programmes listing page — enhanced animations:
+       - Animated color-shifting wave banner (SVG)
+       - Program cards stagger reveal as they enter the viewport (IntersectionObserver)
+       - YouTube cards scale & tilt on hover (desktop)
+-->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title data-i18n="sermons_page_title">Programmes — Mahanaim</title>
-
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Programmes — Mahanaim</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* --------------------
+       PROGRAMMES PAGE - animations
+       -------------------- */
+
+    .wave-banner { position: relative; overflow: hidden; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; background: linear-gradient(90deg, rgba(255,111,0,0.06), rgba(0,176,255,0.04)); box-shadow: var(--shadow-md); }
+    .wave-svg { position:absolute; inset:0; width:100%; height:100%; opacity:0.12; pointer-events:none; mix-blend-mode:screen; }
+    .wave { transform-origin:center; animation: waveDrift 8s linear infinite; }
+    .wave.w2 { animation-duration: 12s; opacity:0.07; transform: translateY(6px) scale(1.02); }
+    @keyframes waveDrift { 0% { transform: translateX(-10%); } 50% { transform: translateX(10%); } 100% { transform: translateX(-10%); } }
+
+    /* programmes cards: initial hidden + staggered reveal */
+    .prog-card { opacity:0; transform: translateY(18px) scale(.995); transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease; will-change: transform, opacity; }
+    .prog-card.visible { opacity:1; transform: translateY(0) scale(1); }
+
+    /* youtube embed card hover */
+    .prog-card .embed { border-radius: 10px; overflow: hidden; transition: transform 300ms ease, box-shadow 300ms ease; }
+    .prog-card:hover .embed { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 48px rgba(0,0,0,0.36); }
+
+    /* small screens: collapse to one column */
+    @media (max-width:767px) {
+      .programmes-grid { grid-template-columns: 1fr !important; }
+      .wave-banner { padding: .8rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wave, .prog-card { animation: none !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim Logo"></div>
-        <div class="brand-text">Mahanaim</div>
-      </a>
-
-      <nav class="main-nav">
-        <a href="index.html" data-i18n="nav_team">Team</a>
-        <a href="programmes.html" data-i18n="nav_programmes">Programmes</a>
-        <a href="pastor.html" data-i18n="nav_pastor">Pastor</a>
-      </nav>
-
-      <div class="header-right">
-        <div class="lang-switch">
-          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
-          <button class="lang-btn" data-lang="ml">മലയാളം</button>
-        </div>
-      </div>
-    </div>
-  </header>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="index.html"><div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim"></div><div class="brand-text">Mahanaim</div></a><nav class="main-nav"><a href="index.html">Team</a><a href="programmes.html">Programmes</a><a href="pastor.html">Pastor</a></nav></div></header>
 
   <main class="container">
-    <h1 data-i18n="sermons_heading">Programmes</h1>
-    <p class="tiny muted">Programmes include worship nights, training sessions, and outreach events.</p>
+    <div class="wave-banner" aria-hidden="true">
+      <h1>Programmes</h1>
+      <p class="muted tiny">All programmes organised by Mahanaim — worship nights, workshops and outreach initiatives.</p>
 
-    <div class="programmes-grid" style="margin-top:1rem">
-      <article class="card programme">
-        <div>
-          <h3>Worship Night — City Hall</h3>
-          <p class="muted">Dec 6, 2025 • 7:00 PM</p>
-          <p class="tiny muted">An evening of praise and testimonies.</p>
-        </div>
-        <div style="margin-top:.6rem">
-          <iframe width="100%" height="160" src="https://www.youtube.com/embed/ysz5S6PUM-U" title="Programme video" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </article>
+      <!-- SVG waves (animated) -->
+      <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#FF6F00"/><stop offset="1" stop-color="#00B0FF"/></linearGradient>
+        </defs>
+        <path class="wave" d="M0 80 Q360 0 720 80 T1440 80 V120 H0z" fill="url(#g1)"></path>
+        <path class="wave w2" d="M0 90 Q360 10 720 90 T1440 90 V120 H0z" fill="url(#g1)"></path>
+      </svg>
+    </div>
 
-      <article class="card programme">
-        <div>
-          <h3>Youth Music Workshop</h3>
-          <p class="muted">Jan 18, 2026 • 10:00 AM</p>
-          <p class="tiny muted">Practical voice and instrument coaching for youth.</p>
-        </div>
-      </article>
+    <div id="programmes-list" class="programmes-grid" aria-live="polite">
+      <!-- main.js will populate programme cards here. We add JS to observe and reveal with a small stagger. -->
     </div>
   </main>
 
-  <footer class="site-footer" style="margin-top:2rem">
-    <div class="container footer-grid">
-      <div><strong>Mahanaim Gospel Team</strong></div>
-      <small class="muted">© <span id="year4"></span> Mahanaim</small>
-    </div>
-  </footer>
+  <footer class="site-footer"><div class="container footer-grid"><div><strong>Mahanaim Gospel Team</strong></div><small class="muted">© <span id="year4"></span></small></div></footer>
 
   <script src="assets/js/email-config.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/buttons.js"></script>
+
+  <script>
+    // After main.js renders the programmes list, we need to attach reveal observer + stagger.
+    (function(){
+      // observe for child list changes in #programmes-list so we set up reveals when content arrives
+      const container = document.getElementById('programmes-list');
+      if (!container) return;
+
+      function initReveal() {
+        const cards = container.querySelectorAll('.card.programme, .card');
+        if (!cards || cards.length === 0) return;
+        // staggered reveal using IntersectionObserver
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                // add delay based on index to create cascade
+                const idx = Array.from(cards).indexOf(el);
+                setTimeout(() => el.classList.add('visible','prog-card'), idx * 110);
+                obs.unobserve(el);
+              }
+            });
+          }, { threshold: 0.12 });
+          cards.forEach(c => io.observe(c));
+        } else {
+          cards.forEach((c,i) => setTimeout(()=>c.classList.add('visible','prog-card'), i*90));
+        }
+      }
+
+      // MutationObserver to detect when main.js injects cards
+      const mo = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          if (m.addedNodes && m.addedNodes.length) { setTimeout(initReveal, 80); break; }
+        }
+      });
+      mo.observe(container, { childList: true, subtree: true });
+
+      // If content already present (cached), init immediately
+      setTimeout(initReveal, 300);
+    })();
+  </script>
 </body>
 </html>

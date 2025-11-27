@@ -5,121 +5,426 @@
   - Reuses same header and theme as index.html.
   - All text nodes keep data-i18n keys to support translations.
 -->
-
-
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title data-i18n="church_title">Mahanaim Worship Center — Worship & Ministries</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mahanaim Worship Center</title>
+<link rel="icon" type="image/png" href="assets/icon.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<!-- Main site CSS -->
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+/* ============================================================
+   CHURCH PAGE — COMPLETE ANIMATION + STACKING FIXED VERSION
+   ============================================================ */
+
+/* Create stacking context */
+body {
+  position: relative;
+  z-index: 0;
+}
+
+/* ===========================
+   PARTICLE CANVAS (BEHIND PAGE)
+   =========================== */
+#pageParticles {
+  position: fixed;
+  inset: 0;
+  z-index: 10;               /* visible behind page */
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* All content stays above canvas */
+header, main, footer, .site-header, .hero-card, .panel-media, .card {
+  position: relative;
+  z-index: 20;
+}
+
+/* MAP must always be highest */
+.map-wrap {
+  z-index: 60 !important;
+  position: relative;
+}
+
+/* ===========================
+   AURORA HEADER ANIMATION
+   =========================== */
+.aurora {
+  position: absolute;
+  inset: -10% -10% -10% -10%;
+  z-index: 15;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 320px at 10% 20%, rgba(255,183,77,0.12), transparent 20%),
+    radial-gradient(600px 320px at 90% 80%, rgba(0,176,255,0.10), transparent 18%),
+    linear-gradient(120deg, rgba(255,183,77,0.12), rgba(0,200,83,0.09), rgba(0,176,255,0.08));
+  filter: blur(45px) saturate(1.1);
+  animation: auroraShift 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes auroraShift {
+  0% { transform: translate3d(-6%, -4%, 0) scale(0.97); }
+  50% { transform: translate3d(6%, 4%, 0) scale(1.05); }
+  100% { transform: translate3d(-6%, -4%, 0) scale(0.97); }
+}
+
+/* ===========================
+   MAP SHIMMER ANIMATION
+   =========================== */
+.map-shimmer {
+  position:absolute; inset:0; z-index:61; pointer-events:none;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.00) 40%,
+    rgba(255,255,255,0.05));
+  opacity: 0;
+  transition: opacity 700ms ease;
+  background-size: 300% 300%;
+  animation: shimmerMove 8s linear infinite;
+}
+@keyframes shimmerMove {
+  0% { background-position:0% 50% }
+  50% { background-position:100% 50% }
+  100% { background-position:0% 50% }
+}
+
+.map-shimmer.visible { opacity: 0.30; }
+
+/* ===========================
+   PULSING PINS
+   =========================== */
+.pin {
+  position:absolute;
+  width:18px; height:18px; border-radius:50%;
+  background: radial-gradient(circle at 40% 30%, #fff, #FFB300);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+  animation: pinPulse 2s ease-in-out infinite;
+  z-index: 62;
+}
+.pin.p1 { left:18%; bottom:28%; animation-delay:.2s }
+.pin.p2 { left:58%; bottom:18%; animation-delay:.6s }
+
+@keyframes pinPulse {
+  0%   { transform: scale(.9); opacity:.8 }
+  50%  { transform: scale(1.3); opacity:1 }
+  100% { transform: scale(.9); opacity:.8 }
+}
+
+/* ===========================
+   REVEAL ON SCROLL
+   =========================== */
+.reveal {
+  opacity:0;
+  transform: translateY(20px);
+  transition: 0.55s ease;
+}
+.reveal.visible {
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   REDUCED MOTION SUPPORT
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+  #pageParticles { display:none !important; }
+  .aurora, .map-shimmer, .pin, .reveal {
+    animation:none !important;
+    transition:none !important;
+  }
+}
+</style>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim Logo"></div>
-        <div class="brand-text">Mahanaim Worship Center</div>
-      </a>
 
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="index.html" data-i18n="nav_team">Team</a>
-        <a href="index.html#events" data-i18n="nav_events">Events</a>
-        <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
-        <a href="church.html" class="btn ghost" data-i18n="nav_church">Church</a>
-      </nav>
+<!-- ==========================================================
+     PARTICLE CANVAS (BEHIND EVERYTHING)
+     ========================================================== -->
+<canvas id="pageParticles"></canvas>
 
-      <div class="header-right">
-        <div class="lang-switch">
-          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
-          <button class="lang-btn" data-lang="ml">മലയാളം</button>
-        </div>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+<!-- ==========================================================
+     HEADER
+     ========================================================== -->
+<header class="site-header" style="position:relative; overflow:visible;">
+  <div class="aurora"></div>
+
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      <div class="logo-box"><img src="assets/images/logo.jpg" alt="Logo"></div>
+      <div class="brand-text">Mahanaim Worship Center</div>
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html">Team</a>
+      <a href="index.html#events">Events</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="ml">മലയാളം</button>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="hero container">
-      <div class="hero-card">
-        <span class="kicker">A welcoming church family</span>
-        <h1 data-i18n="church_heading">Mahanaim Worship Center</h1>
-        <p class="lede">We gather weekly for worship, training, prayer and outreach. Everyone is welcome.</p>
+<!-- ==========================================================
+     MAIN
+     ========================================================== -->
 
-        <div style="margin-top:1rem">
-          <a class="btn primary" href="#service-times" data-i18n="btn_service_times">Service Times</a>
-          <a class="btn ghost" href="#ministries" data-i18n="btn_our_ministries">Our Ministries</a>
-        </div>
-      </div>
+<main>
 
-      <aside class="panel-media">
-        <h4 class="tiny muted">Visit Us</h4>
-        <p class="muted">Mahanaim Worship Center • 123 Faith St</p>
-        <div style="margin-top:.8rem"><a class="btn ghost" id="btn-directions-2" href="#">Get Directions</a></div>
-      </aside>
-    </section>
+<section class="hero container">
+  <div class="hero-card">
+    <h1>Mahanaim Worship Center</h1>
+    <p class="lede">We gather weekly for worship, prayer, training and outreach.</p>
+    <p>
+      <a class="btn primary" href="#service-times">Service Times</a>
+      <a class="btn ghost" href="#ministries">Our Ministries</a>
+    </p>
+  </div>
+</section>
 
-    <section id="service-times" class="section container">
-      <h2 data-i18n="service_title">Service Times</h2>
-      <div class="card">
-        <ul>
-          <li><strong data-i18n="service_sun">Sunday Worship</strong> — 9:00 AM & 11:00 AM</li>
-          <li><strong data-i18n="service_mid">Midweek Prayer</strong> — Wednesday 7:00 PM</li>
-          <li><strong data-i18n="service_youth">Youth Group</strong> — Friday 6:30 PM</li>
-        </ul>
-      </div>
-    </section>
+<section id="location" class="section container">
+  <h2 class="reveal">Location & Map</h2>
 
-    <section id="ministries" class="section container">
-      <h2 data-i18n="ministries_title">Ministries</h2>
-      <div class="features-grid">
-        <div class="feature">
-          <h3 data-i18n="min_children">Children & Youth</h3>
-          <p data-i18n="min_children_desc">Safe, fun programs to help young people grow in faith.</p>
-        </div>
-        <div class="feature">
-          <h3 data-i18n="min_worship">Worship Team</h3>
-          <p data-i18n="min_worship_desc">Mahanaim leads congregational worship, rehearsals weekly.</p>
-        </div>
-        <div class="feature">
-          <h3 data-i18n="min_outreach">Care & Outreach</h3>
-          <p data-i18n="min_outreach_desc">Community support through food distribution and counselling.</p>
-        </div>
-      </div>
-    </section>
+  <div class="map-wrap reveal" id="mapWrap" style="margin-top:1rem">
+    <div class="map-shimmer" id="mapShimmer"></div>
+    <div class="pin p1"></div>
+    <div class="pin p2"></div>
 
-    <section id="pastor" class="section container">
-      <h2 data-i18n="pastor_title">Meet Our Pastor</h2>
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem">
-        <div>
-          <h3>Pastor Jimshu Varghese</h3>
-          <p class="lead">Pastor Jimshu leads with heart for discipleship and community care.</p>
-          <p><a class="btn primary" href="pastor.html" data-i18n="btn_full_profile">Full Pastor Profile</a></p>
-        </div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!4v1764228678617!6m8!1m7!1skwsE4F0jvCDN9QRdWaq7Ag!2m2!1d10.70727595643939!2d76.34317120559851!3f114.08384691278253!4f-2.566249725589927!5f0.7820865974627469"
+      width="1200" height="450"
+      style="border:0;"
+      allowfullscreen
+      loading="lazy"></iframe>
+  </div>
+</section>
 
-        <aside class="card">
-          <img src="assets/images/pastor.jpg" alt="Pastor Jimshu" style="width:100%;border-radius:10px;box-shadow:var(--shadow-md)">
-        </aside>
-      </div>
-    </section>
+<section id="service-times" class="section container">
+  <h2 class="reveal">Service Times</h2>
+  <div class="card reveal">
+    <ul>
+      <li><strong>Sunday Worship</strong> — 8:30 AM Onwards</li>
+      <li><strong>Midweek Prayer</strong> — Tuesday 10:30 Onwards</li>
+    </ul>
+  </div>
+</section>
 
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <strong>Mahanaim Worship Center</strong>
-        <p class="muted">Worship • Outreach • Community</p>
-      </div>
-      <small class="muted">© <span id="year2"></span> Mahanaim Worship Center</small>
+<section id="pastor" class="section container">
+  <h2 class="reveal">Meet Our Pastor</h2>
+  <div class="card reveal" style="display:grid; grid-template-columns:2fr 1fr; gap:1rem;">
+    <div>
+      <h3>Pastor Jimshu Varghese</h3>
+      <p class="lead">Leads with a heart for discipleship and community care.</p>
+      <a class="btn primary" href="pastor.html">Full Pastor Profile</a>
     </div>
-  </footer>
 
-  <script src="assets/js/email-config.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/buttons.js"></script>
+    <aside>
+      <img src="assets/images/pastor.jpg" style="width:100%; border-radius:10px; box-shadow:var(--shadow-md)">
+      <p class="muted" style="margin-top:.5rem">Married — 3 children</p>
+    </aside>
+  </div>
+</section>
+
+</main>
+
+<!-- ==========================================================
+     FOOTER
+     ========================================================== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <strong>Mahanaim Worship Center</strong>
+      <p class="muted">Worship • Outreach • Community</p>
+    </div>
+    <small class="muted">© <span id="year2"></span></small>
+  </div>
+</footer>
+
+<!-- ==========================================================
+     SCRIPTS
+     ========================================================== -->
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/buttons.js"></script>
+
+<!-- ==========================================================
+     PARTICLE ANIMATION SCRIPT (FULL + FIXED)
+     ========================================================== -->
+<script>
+(function(){
+  'use strict';
+
+  /* CONFIG */
+  const BASE_PARTICLE_DENSITY = 0.9;
+  const COLOR_PALETTE = ['#FFB300', '#FF6F00', '#00C853', '#00B0FF'];
+  const SPEED_FACTOR = 0.25;
+  const MAX_SIZE = 16;
+  const MIN_SIZE = 6;
+
+  /* CANVAS */
+  const canvas = document.getElementById('pageParticles');
+  const ctx = canvas.getContext('2d', {alpha:true});
+
+  /* REDUCED MOTION */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced){
+    canvas.style.display='none';
+    return;
+  }
+
+  /* STATE */
+  let particles = [];
+  let particleCount = 0;
+  let mapRect = null;
+  const mapWrap = document.getElementById('mapWrap');
+
+  function updateMapRect(){
+    if(!mapWrap){ mapRect=null; return; }
+    const r = mapWrap.getBoundingClientRect();
+    mapRect = {left:r.left, top:r.top, right:r.right, bottom:r.bottom};
+  }
+
+  /* RESIZE */
+  function resizeCanvas(){
+    const dpr = window.devicePixelRatio || 1;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w+'px';
+    canvas.style.height = h+'px';
+
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    particleCount = Math.round((w*h)/100000 * BASE_PARTICLE_DENSITY * 40);
+    particles = [];
+    for(let i=0;i<particleCount;i++) particles.push(makeParticle(w,h));
+    updateMapRect();
+  }
+
+  /* CREATE PARTICLE */
+  function makeParticle(w,h){
+    const size = Math.random()*(MAX_SIZE-MIN_SIZE)+MIN_SIZE;
+    const angle = Math.random()*Math.PI*2;
+    const speed = (Math.random()*0.6+0.2)*SPEED_FACTOR;
+    return {
+      x:Math.random()*w,
+      y:Math.random()*h,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed*0.45,
+      size:size,
+      color:COLOR_PALETTE[Math.floor(Math.random()*COLOR_PALETTE.length)],
+      opacity:0.08 + Math.random()*0.18,
+      tw:Math.random()*0.02 + 0.003,
+      twp:Math.random()*Math.PI*2
+    };
+  }
+
+  /* DRAW */
+  function draw(p){
+    const r=p.size/2;
+    const g=ctx.createRadialGradient(p.x,p.y,r*0.2,p.x,p.y,r);
+    g.addColorStop(0, color(p.color,p.opacity));
+    g.addColorStop(0.4, color(p.color,p.opacity*0.6));
+    g.addColorStop(1, color(p.color,0));
+    ctx.fillStyle=g;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,r,0,2*Math.PI);
+    ctx.fill();
+  }
+
+  /* COLOR HELPER */
+  function color(hex,a){
+    const h=hex.replace('#','');
+    const r=parseInt(h.substring(0,2),16);
+    const g=parseInt(h.substring(2,4),16);
+    const b=parseInt(h.substring(4,6),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  /* LOOP */
+  function animate(){
+    ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+    updateMapRect();
+
+    for(const p of particles){
+      p.x += p.vx + Math.sin(p.twp)*p.tw*6;
+      p.y += p.vy + Math.cos(p.twp)*p.tw*2;
+      p.twp += p.tw;
+
+      if(p.x< -50) p.x = window.innerWidth+50;
+      if(p.x> window.innerWidth+50) p.x = -50;
+      if(p.y< -50) p.y = window.innerHeight+50;
+      if(p.y> window.innerHeight+50) p.y = -50;
+
+      // Skip drawing if inside map rect
+      if(mapRect && p.x>mapRect.left && p.x<mapRect.right && p.y>mapRect.top && p.y<mapRect.bottom) continue;
+
+      draw(p);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  /* INIT */
+  resizeCanvas();
+  animate();
+
+  window.addEventListener('resize',()=>resizeCanvas(),{passive:true});
+  window.addEventListener('scroll',()=>updateMapRect(),{passive:true});
+
+})();
+</script>
+
+<!-- Reveal & shimmer handling -->
+<script>
+(function(){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !prefersReduced){
+    const obs = new IntersectionObserver((entries,observer)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    },{threshold:0.1});
+    els.forEach(el=>obs.observe(el));
+  } else {
+    els.forEach(el=>el.classList.add('visible'));
+  }
+
+  const shimmer=document.getElementById('mapShimmer');
+  if(shimmer){
+    let on=true;
+    shimmer.classList.add('visible');
+    if(!prefersReduced){
+      setInterval(()=>{
+        on=!on;
+        shimmer.classList.toggle('visible',on);
+      },3000);
+    }
+  }
+})();
+</script>
+
 </body>
 </html>

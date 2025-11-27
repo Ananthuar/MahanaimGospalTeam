@@ -1,11 +1,7 @@
-<!--
-  index.html
-  ----------
-  Main landing page for Mahanaim Gospel Team.
-  - UI updated: colorful, accessible buttons (YouTube, WhatsApp, Directions, Email).
-  - Logo: uses assets/images/logo.jpg (replace with your image).
-  - Contact form posts via EmailJS (client-side) or Formspree fallback — see assets/js/email-config.js and assets/js/main.js.
-  - All visible text nodes keep data-i18n attributes for translations.
+<!-- index.html
+     Landing page — bubble animation behind hero.
+     Dynamic: events & programmes are injected by assets/js/main.js
+     Buttons and ripple/tilt enabled via assets/js/buttons.js
 -->
 
 <!doctype html>
@@ -13,22 +9,92 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title data-i18n="site_title">Mahanaim Gospel Team</title>
+  <title>Mahanaim Gospel Team</title>
   <meta name="description" content="Mahanaim Gospel Team — worship, outreach and community programs." />
 
   <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/icon.png">
 
-  <!-- Main theme CSS (replace with your own modifications if needed) -->
+  <!-- Main theme CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* Page-scoped animation helpers for index */
+
+    /* Create baseline stacking context */
+    body { position: relative; z-index: 0; }
+
+    /* Full-screen canvas for particle network (visible but behind content) */
+    #bgCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 10;               /* canvas visible behind content */
+      pointer-events: none;
+      opacity: 0.95;
+      mix-blend-mode: screen;
+    }
+
+    /* Floating decorative blobs (SVG) behind hero card */
+    .floating-blobs {
+      position:absolute;
+      inset:0;
+      z-index:12; /* above canvas but behind content (content uses z-index:20) */
+      pointer-events:none;
+      overflow:visible;
+    }
+    .floating-blobs svg { width:100%; height:100%; }
+
+    /* Ensure content stays above the animation */
+    header, main, footer, .site-header, .hero-card, .panel-media, .card {
+      position: relative;
+      z-index: 20;
+    }
+
+    /* Subtle reduce-motion fallback */
+    @media (prefers-reduced-motion: reduce) {
+      #bgCanvas { display:none !important; }
+      .floating-blobs { display:none !important; }
+    }
+
+    /* Small tweak: make hero-anim bubbles still visible but lower opacity when canvas active */
+    .hero-anim { z-index: 18; pointer-events:none; }
+  </style>
 </head>
 <body>
-  <!--
-    Header
-    - Brand uses assets/images/logo.jpg (replace with your logo image).
-    - No underlines on links; all actions are buttons.
-    - Primary CTA has classes for button life effects: btn primary tilt-enabled pulse
-  -->
+  <!-- Full-screen canvas for particle-network background -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <!-- Decorative floating blobs: layered compound gradients for depth -->
+  <div class="floating-blobs" aria-hidden="true">
+    <svg preserveAspectRatio="none" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gA" x1="0" x2="1">
+          <stop offset="0" stop-color="#FF6F00"/>
+          <stop offset="1" stop-color="#00B0FF"/>
+        </linearGradient>
+        <linearGradient id="gB" x1="0" x2="1">
+          <stop offset="0" stop-color="#FFB300"/>
+          <stop offset="1" stop-color="#00C853"/>
+        </linearGradient>
+        <filter id="blurFilter">
+          <feGaussianBlur stdDeviation="60" />
+        </filter>
+      </defs>
+
+      <!-- blob 1 -->
+      <g transform="translate(40,90)">
+        <path fill="url(#gA)" opacity="0.16" filter="url(#blurFilter)" d="M0,180 C120,80 240,100 360,150 C480,200 600,220 720,160 C840,100 960,140 1080,160 L1080,600 L0,600 Z"></path>
+      </g>
+
+      <!-- blob 2 -->
+      <g transform="translate(-100,40)">
+        <path fill="url(#gB)" opacity="0.12" filter="url(#blurFilter)" d="M0,220 C140,80 320,80 460,130 C600,180 760,180 880,140 C1000,100 1160,160 1200,200 L1200,600 L0,600 Z"></path>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html" aria-label="Mahanaim home">
@@ -37,11 +103,11 @@
       </a>
 
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="#about" data-i18n="nav_about">About</a>
-        <a href="#events" data-i18n="nav_events">Events</a>
-        <a href="programmes.html" data-i18n="nav_programmes">Programmes</a>
-        <a href="church.html" data-i18n="nav_church">Mahanaim Worship Center</a>
-        <a href="#contact" data-i18n="nav_contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#events">Events</a>
+        <a href="programmes.html">Programmes</a>
+        <a href="church.html">Mahanaim Worship Center</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <div class="header-right">
@@ -54,28 +120,31 @@
     </div>
   </header>
 
+  <!-- Main -->
   <main>
-    <!-- Hero -->
-    <section class="hero container">
-      <div class="hero-card">
-        <span class="kicker">Upcoming</span>
-        <h1 data-i18n="hero_h1">Mahanaim Gospel Team</h1>
-        <p class="lede" data-i18n="hero_lede">Music, worship and outreach from Mahanaim Worship Center — join us in praise and service.</p>
+    <!-- HERO -->
+    <section class="hero container" style="position:relative;">
+      <!-- Keep small bubble CSS layer (complementary) -->
+      <div class="hero-anim" aria-hidden="true">
+        <ul class="bubbles" aria-hidden="true">
+          <li style="--size:120px; --left:6%;  --delay:0s;   --dur:12s;"></li>
+          <li style="--size:80px;  --left:22%; --delay:1.6s; --dur:9s;"></li>
+          <li style="--size:100px; --left:38%; --delay:0.8s; --dur:11.5s;"></li>
+          <li style="--size:60px;  --left:58%; --delay:2.2s; --dur:10s;"></li>
+          <li style="--size:140px; --left:74%; --delay:0.4s; --dur:13s;"></li>
+          <li style="--size:90px;  --left:86%; --delay:1.1s; --dur:10.8s;"></li>
+        </ul>
+      </div>
 
-        <!-- Primary CTAs:
-             - 'tilt-enabled' + 'pulse' classes add the life effects via buttons.js and CSS.
-             - onclick scrolls to contact form for quick sign-up.
-        -->
+      <div class="hero-card" role="region" aria-label="Intro">
+        <h1>Mahanaim Gospel Team</h1>
+        <p class="lede">Music, worship and outreach from Mahanaim Worship Center — join us in praise and service.</p>
+
         <div class="cta-row">
-          <button class="btn primary tilt-enabled pulse" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" id="joinBtn">
-            Join / Contact
-          </button>
-
-          <!-- Get directions button (replace href with your real Google Maps link) -->
-          <a class="btn ghost" id="btn-directions" href="#" role="button">Get Directions</a>
+          <button class="btn primary tilt-enabled pulse" id="joinBtn">Join / Contact</button>
+          <a class="btn ghost" id="btn-directions" href="https://maps.app.goo.gl/Bf3tqkgq58LdWEpx5" role="button">Get Directions</a>
         </div>
 
-        <!-- Social buttons: YouTube, WhatsApp, Email -->
         <div style="margin-top:1rem;display:flex;gap:.6rem">
           <a class="btn social" id="btn-youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
           <a class="btn social" id="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
@@ -83,9 +152,9 @@
         </div>
       </div>
 
-      <aside class="panel-media">
+      <aside class="panel-media" aria-hidden="true">
         <div class="stat">
-          <div class="num">12+</div>
+          <div class="num">20+</div>
           <div class="muted">Years of Ministry</div>
         </div>
         <div class="stat">
@@ -95,122 +164,252 @@
       </aside>
     </section>
 
-    <!-- About -->
+    <!-- ABOUT -->
     <section id="about" class="section container">
-      <h2 data-i18n="about_title">About the Team</h2>
-      <p class="lead" data-i18n="about_lead">Mahanaim is a family of musicians, singers and ministry leaders passionate about gospel music and community service.</p>
-
+      <h2>About the Team</h2>
+      <p class="lead">Mahanaim Gospel Team is a family of spiritual individuals passionate about gospel music and community service.</p>
       <div class="features-grid">
-        <div class="feature">
-          <h3 data-i18n="feature_music">Worship & Music</h3>
-          <p data-i18n="feature_music_desc">Live worship, choir training and collaborative music projects.</p>
-        </div>
-        <div class="feature">
-          <h3 data-i18n="feature_outreach">Outreach</h3>
-          <p data-i18n="feature_outreach_desc">Food drives, youth support and neighbourhood care.</p>
-        </div>
-        <div class="feature">
-          <h3 data-i18n="feature_training">Training</h3>
-          <p data-i18n="feature_training_desc">Vocal coaching, instrument lessons and discipleship sessions.</p>
-        </div>
+        <div class="feature"><h3>Worship & Music</h3><p>Live worship, choir training and collaborative music projects.</p></div>
+        <div class="feature"><h3>Outreach</h3><p>Gospel Ministries - Reaching word of god around the nation.</p></div>
+        <div class="feature"><h3>Training</h3><p>Preparing individuals who are thirst about it, to be men and women of god</p></div>
       </div>
     </section>
 
-    <!-- Events: rendered by main.js (Firestore or static fallback) -->
+    <!-- EVENTS -->
     <section id="events" class="section container">
-      <h2 data-i18n="events_title">Events</h2>
+      <h2>Events</h2>
       <div id="events" class="card">
         <div id="events-placeholder" class="muted tiny">Loading events…</div>
       </div>
+      <p style="margin-top:1rem"><a class="btn ghost" href="events.html">See All Events</a></p>
     </section>
 
-    <!-- Programmes -->
+    <!-- PROGRAMMES -->
     <section id="programmes" class="section container">
-      <h2 data-i18n="sermons_heading">Programmes</h2>
+      <h2>Programmes</h2>
       <p class="tiny muted">Worship nights, workshops and outreach programs.</p>
-
-      <div class="programmes-grid" id="programmes-list">
-        <article class="card programme">
-          <h3>Worship Night — City Hall</h3>
-          <p class="muted">Dec 6, 2025 • 7:00 PM</p>
-          <p class="tiny muted">An evening of praise and testimony.</p>
-        </article>
-
-        <article class="card programme">
-          <h3>Youth Music Workshop</h3>
-          <p class="muted">Jan 18, 2026 • 10:00 AM</p>
-          <p class="tiny muted">Practical music training for youth.</p>
-        </article>
-      </div>
-
+      <div class="programmes-grid" id="programmes-list"></div>
       <p style="margin-top:1rem"><a class="btn ghost" href="programmes.html">See All Programmes</a></p>
     </section>
 
-    <!-- Contact -->
+    <!-- CONTACT -->
     <section id="contact" class="section container">
-      <h2 data-i18n="contact_title">Contact & Join</h2>
+      <h2>Contact & Join</h2>
       <div class="contact-grid">
-        <!-- Contact form — uses EmailJS if configured; else shows helpful message -->
         <form id="contactForm" class="contact-form card" novalidate>
-          <label>
-            <span data-i18n="form_name">Name</span>
-            <input id="cf-name" name="name" required placeholder="Your name" data-i18n-placeholder="ph_name">
-          </label>
-
-          <label>
-            <span data-i18n="form_email">Email</span>
-            <input id="cf-email" name="email" type="email" required placeholder="you@example.com" data-i18n-placeholder="ph_email">
-          </label>
-
-          <label>
-            <span data-i18n="form_msg">Message</span>
-            <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us how you'd like to connect" data-i18n-placeholder="ph_message"></textarea>
-          </label>
-
+          <label><span>Name</span><input id="cf-name" name="name" required placeholder="Your name"></label>
+          <label><span>Email</span><input id="cf-email" name="email" type="email" required placeholder="you@example.com"></label>
+          <label><span>Message</span><textarea id="cf-message" name="message" rows="5" required placeholder="Tell us how you'd like to connect"></textarea></label>
           <div class="form-actions">
-            <!-- The button has tilt + pulse classes to bring the "life" -->
             <button id="cf-submit" type="submit" class="btn primary tilt-enabled">Send Message</button>
             <button id="cf-reset" type="reset" class="btn ghost">Reset</button>
           </div>
-
           <div id="formStatus" class="form-status tiny muted" aria-live="polite"></div>
         </form>
 
         <aside class="card">
-          <h3 data-i18n="quick_info">Quick Info</h3>
-          <p><strong data-i18n="email_label">Email:</strong> <a class="btn social" href="mailto:mahanaimgospelteam@gmail.com">mahanaimgospelteam@gmail.com</a></p>
-          <p><strong data-i18n="phone_label">Phone:</strong> <a class="btn ghost" href="tel:+1234567890">+1 (234) 567-890</a></p>
-          <p><strong data-i18n="location_label">Location:</strong> Mahanaim Worship Center, 123 Faith St.</p>
-
-          <h4 data-i18n="support_title">Support</h4>
-          <p data-i18n="support_desc">If you'd like to support our ministry, use the donate button below.</p>
-          <p><a class="btn primary" href="#">Donate</a></p>
+          <h3>Quick Info</h3>
+          <p><strong>Email:</strong> <a class="btn social" href="mailto:mahanaimgospelteam@gmail.com">mahanaimgospelteam@gmail.com</a></p>
+          <p><strong>Phone:</strong> <a class="btn ghost" href="tel:9496419741">9496419741</a></p>
+          <p><strong>Location:</strong> Mahanaim Worship Center, Near Co-operative Society, Venganellur, Chelakkara 680 - 586, Thrissur</p>
         </aside>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <strong data-i18n="footer_name">Mahanaim Gospel Team</strong>
-        <p class="muted" data-i18n="footer_tag">Worship • Outreach • Community</p>
+        <strong>Mahanaim Gospel Team</strong>
+        <p class="muted">Worship • Outreach • Community</p>
       </div>
       <div class="muted">© <span id="year"></span> Mahanaim</div>
     </div>
   </footer>
 
-  <!-- EmailJS SDK (client-side) -->
+  <!-- EmailJS SDK -->
   <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
 
-  <!-- Local configuration for email (fill in EMAILJS IDs in this file) -->
+  <!-- Config / main scripts -->
   <script src="assets/js/email-config.js"></script>
-
-  <!-- Main site JS (i18n, events loader, contact handling) -->
   <script src="assets/js/main.js"></script>
-
-  <!-- Button life script (ripple + tilt) -->
   <script src="assets/js/buttons.js"></script>
+
+  <!--
+    Particle Network Script
+    - draws particles and connecting lines
+    - adaptive particle count by viewport area
+    - stops drawing if prefers-reduced-motion
+    - performant: pauses when tab hidden
+  -->
+  <script>
+    (function(){
+      'use strict';
+
+      const canvas = document.getElementById('bgCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+
+      // Respect user's reduced-motion preference
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        canvas.style.display = 'none';
+        console.info('Reduced motion: hero background animations disabled.');
+        return;
+      }
+
+      // Config - tweak these values for density and speed
+      const BASE_DENSITY = 0.8; // particles per 100k px
+      const COLORS = ['#FFB300', '#FF6F00', '#00C853', '#00B0FF'];
+      const MAX_RADIUS = 3.6;
+      const MIN_RADIUS = 1.6;
+      const LINK_DISTANCE = 140;
+      const SPEED_SCALE = 0.35;
+
+      let particles = [];
+      let particleCount = 0;
+      let raf = null;
+
+      function resize() {
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        canvas.width = Math.round(window.innerWidth * dpr);
+        canvas.height = Math.round(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const area100k = (window.innerWidth * window.innerHeight) / 100000;
+        particleCount = Math.max(16, Math.round(area100k * BASE_DENSITY * 36));
+        initParticles();
+      }
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * SPEED_SCALE,
+            vy: (Math.random() - 0.5) * (SPEED_SCALE * 0.6),
+            r: rand(MIN_RADIUS, MAX_RADIUS),
+            c: COLORS[Math.floor(Math.random() * COLORS.length)],
+            phase: Math.random() * Math.PI * 2,
+            tw: Math.random() * 0.015 + 0.002
+          });
+        }
+      }
+
+      // Pause when tab is hidden to save CPU
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else raf = requestAnimationFrame(loop);
+      });
+
+      function drawParticle(p) {
+        const g = ctx.createRadialGradient(p.x, p.y, p.r * 0.05, p.x, p.y, p.r + 8);
+        g.addColorStop(0, colorAlpha(p.c, 0.9));
+        g.addColorStop(0.4, colorAlpha(p.c, 0.35));
+        g.addColorStop(1, colorAlpha(p.c, 0.0));
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function colorAlpha(hex, a) {
+        const h = hex.replace('#','');
+        const r = parseInt(h.substring(0,2),16);
+        const g = parseInt(h.substring(2,4),16);
+        const b = parseInt(h.substring(4,6),16);
+        return `rgba(${r},${g},${b},${a})`;
+      }
+
+      function loop() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+        // update positions & draw particles
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          // slight oscillation for life
+          p.phase += p.tw;
+          p.x += p.vx + Math.sin(p.phase) * 0.12;
+          p.y += p.vy + Math.cos(p.phase) * 0.08;
+
+          // wrap-around
+          if (p.x < -20) p.x = window.innerWidth + 20;
+          if (p.x > window.innerWidth + 20) p.x = -20;
+          if (p.y < -20) p.y = window.innerHeight + 20;
+          if (p.y > window.innerHeight + 20) p.y = -20;
+
+          drawParticle(p);
+        }
+
+        // draw connecting lines (simple O(n^2) but fine for moderate counts)
+        ctx.lineWidth = 0.9;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < LINK_DISTANCE) {
+              const alpha = 0.22 * (1 - dist / LINK_DISTANCE);
+              ctx.strokeStyle = colorAlpha(a.c, alpha);
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        raf = requestAnimationFrame(loop);
+      }
+
+      // handle resize
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        resize();
+        raf = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      // initialize and start
+      resize();
+      raf = requestAnimationFrame(loop);
+
+      // expose for debugging
+      window.__indexBg = { resize, initParticles };
+
+    })();
+  </script>
+
+  <!-- Reveal initialization & footer year fill -->
+  <script>
+    (function(){
+      // set year in footer
+      document.addEventListener('DOMContentLoaded', ()=> {
+        const y = document.getElementById('year');
+        if (y) y.textContent = new Date().getFullYear();
+      });
+
+      // reveal elements on scroll (IntersectionObserver or fallback)
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealEls = document.querySelectorAll('.reveal, .hero-card, .panel-media, .feature, .card');
+      if ('IntersectionObserver' in window && !prefersReduced) {
+        const obs = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => obs.observe(el));
+      } else {
+        revealEls.forEach(el => el.classList.add('visible'));
+      }
+    })();
+  </script>
 </body>
 </html>

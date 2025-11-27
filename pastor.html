@@ -10,87 +10,247 @@
      - Pastor: Jimshu Varghese — Married, 3 children
      - Contact email button present
 -->
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title data-i18n="pastor_page_title">Pastor — Jimshu Varghese</title>
+  <title>Pastor — Jimshu Varghese</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
 
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /***********************************************
+      🕊️ HOLY SPIRIT DOVE PARTICLES (BIG + GLOWING)
+      - Pure CSS (no images)
+      - Soft wing-shaped glowing particles
+      - Much bigger than ember version
+      - Visible on all devices
+    ***********************************************/
+
+    body { 
+      position: relative; 
+      z-index: 0; 
+      overflow-x: hidden; 
+      background: #080a11;
+      color: white;
+    }
+
+    /* Background glow waves */
+    .glow-waves {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(circle at 60% 80%, rgba(255,130,40,0.25), transparent 55%),
+                  radial-gradient(circle at 20% 20%, rgba(255,200,80,0.22), transparent 60%),
+                  radial-gradient(circle at 80% 30%, rgba(255,80,0,0.18), transparent 50%);
+      filter: blur(70px);
+      animation: waveShift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes waveShift {
+      0% { transform: translateY(0) scale(1); opacity: 0.85; }
+      100% { transform: translateY(-3%) scale(1.06); opacity: 1; }
+    }
+
+    /* Dove particle field */
+    .doves {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Dove shape (pure CSS)
+       - uses two wing-like blurred ellipses
+       - soft glowing white/orange tone
+    */
+    .dove {
+      position: absolute;
+      width: var(--size);
+      height: calc(var(--size) * 0.6);
+      opacity: var(--opacity);
+      left: var(--left);
+      animation: doveFloat var(--dur) ease-in-out infinite;
+      transform: translateY(100vh) rotate(var(--rot));
+    }
+
+    /* LEFT WING */
+    .dove::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 65%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.9), rgba(255,180,60,0.4), transparent);
+      filter: blur(6px);
+      border-radius: 50%;
+      transform: rotate(-35deg) translate(-20%, -10%);
+    }
+
+    /* RIGHT WING */
+    .dove::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 65%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,240,200,0.9), rgba(255,150,50,0.35), transparent);
+      filter: blur(6px);
+      border-radius: 50%;
+      transform: rotate(35deg) translate(55%, -10%);
+    }
+
+    /* Bigger, slower floating motion */
+    @keyframes doveFloat {
+      0%   { transform: translateY(100vh) rotate(var(--rot)) scale(0.9); opacity: 0; }
+      15%  { opacity: var(--opacity); }
+      55%  { transform: translateY(-10vh) rotate(calc(var(--rot) + 5deg)) scale(1.08); opacity: var(--opacity); }
+      100% { transform: translateY(-25vh) rotate(calc(var(--rot) + 10deg)) scale(1.2); opacity: 0; }
+    }
+
+    header, main, footer { position: relative; z-index: 20; }
+
+    /* Slide-in effect */
+    .slide-in { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
+    .slide-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Pastor photo glow */
+    .pastor-photo {
+      width: 100%;
+      border-radius: 14px;
+      display: block;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.45);
+      transition: 450ms ease;
+    }
+    .pastor-photo.glow {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow:
+        0 22px 60px rgba(255,130,40,0.35),
+        0 10px 30px rgba(255,200,80,0.22);
+    }
+
+  </style>
 </head>
+
 <body>
+
+  <!-- Background Glow -->
+  <div class="glow-waves" aria-hidden="true"></div>
+
+  <!-- 🕊️ Holy Doves -->
+  <div class="doves" aria-hidden="true">
+    <!-- Bigger dove particles -->
+    <div class="dove" style="--size:95px;  --left:10%; --opacity:.45; --dur:14s; --rot:4deg;"></div>
+    <div class="dove" style="--size:120px; --left:25%; --opacity:.50; --dur:18s; --rot:-3deg;"></div>
+    <div class="dove" style="--size:140px; --left:45%; --opacity:.55; --dur:16s; --rot:2deg;"></div>
+    <div class="dove" style="--size:110px; --left:65%; --opacity:.42; --dur:20s; --rot:-6deg;"></div>
+    <div class="dove" style="--size:150px; --left:80%; --opacity:.48; --dur:22s; --rot:3deg;"></div>
+  </div>
+
+  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim Logo"></div>
+        <div class="logo-box"><img src="assets/images/logo.jpg" alt=""></div>
         <div class="brand-text">Mahanaim</div>
       </a>
 
       <nav class="main-nav">
-        <a href="index.html" data-i18n="nav_team">Team</a>
-        <a href="programmes.html" data-i18n="nav_programmes">Programmes</a>
-        <a href="church.html" data-i18n="nav_church">Church</a>
+        <a href="index.html">Team</a>
+        <a href="programmes.html">Programmes</a>
+        <a href="church.html">Church</a>
       </nav>
-
-      <div class="header-right">
-        <div class="lang-switch">
-          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
-          <button class="lang-btn" data-lang="ml">മലയാളം</button>
-        </div>
-      </div>
     </div>
   </header>
 
-  <main class="container" style="padding-top:1.2rem">
-    <section class="card">
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem">
+  <!-- MAIN -->
+  <main class="container" style="padding-top:1.8rem;">
+    <section class="card" style="padding:1.8rem;">
+      <div style="display:grid; grid-template-columns:2fr 1fr; gap:2rem; align-items:start;">
+
         <div>
-          <h1>Pastor Jimshu Varghese</h1>
-          <p class="lead">Pastor Jimshu has served in ministry for many years and brings strong pastoral care, teaching and leadership to Mahanaim Worship Center.</p>
+          <h1 class="slide-in">Pastor Jimshu Varghese</h1>
+          <p class="lead slide-in">
+            Pastor Jimshu leads Mahanaim Worship Center with a calling to serve God through prayer, teaching, worship and discipleship. His ministry has transformed many lives through God's grace.
+          </p>
 
-          <h3>Mission & Calling</h3>
-          <p>To call people into a living relationship with Jesus, equip leaders, and serve the city through worship and compassionate action.</p>
+          <h3 class="slide-in">Mission & Calling</h3>
+          <p class="slide-in">
+            To raise strong believers, minister to families, support youth and spread the Gospel with compassion and Holy Spirit fire.
+          </p>
 
-          <h3>Contact</h3>
-          <p><strong>Email:</strong> <a class="btn primary" href="mailto:mahanaimgospelteam@gmail.com">mahanaimgospelteam@gmail.com</a></p>
-          <p><strong>Phone:</strong> <a class="btn ghost" href="tel:+1234567890">+1 (234) 567-890</a></p>
+          <h3 class="slide-in">Contact</h3>
+          <p class="slide-in"><strong>Email:</strong>
+            <a class="btn primary" href="mailto:mahanaimgospelteam@gmail.com">
+              mahanaimgospalteam@gmail.com
+            </a>
+          </p>
+
+          <p class="slide-in"><strong>Phone:</strong>
+            <a class="btn ghost" href="tel:9496419741">9496419741</a>
+          </p>
+
+          <p class="slide-in"><strong>Family:</strong> Married — 3 children</p>
         </div>
 
         <aside>
-          <img src="assets/images/pastor.jpg" alt="Pastor Jimshu" style="width:100%;border-radius:12px;box-shadow:var(--shadow-md)">
-          <p class="muted" style="margin-top:.6rem">Married — 3 children</p>
+          <img id="pastorPhoto" class="pastor-photo" src="assets/images/pastor.jpg">
         </aside>
-      </div>
-    </section>
 
-    <section style="margin-top:1rem" class="container">
-      <h2>Programmes by Pastor</h2>
-      <div class="programmes-grid">
-        <article class="card programme">
-          <h3>Discipleship Training</h3>
-          <p class="muted">Monthly leadership training and small-group coaching.</p>
-        </article>
-
-        <article class="card programme">
-          <h3>Community Outreach</h3>
-          <p class="muted">Practical help and support projects around the city.</p>
-        </article>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer" style="margin-top:2rem">
+  <!-- FOOTER -->
+  <footer class="site-footer">
     <div class="container footer-grid">
       <div><strong>Mahanaim Gospel Team</strong></div>
-      <small class="muted">© <span id="year3"></span> Mahanaim</small>
+      <small class="muted">© <span id="yearP"></span></small>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="assets/js/email-config.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/buttons.js"></script>
+
+  <script>
+    (function(){
+      const items = document.querySelectorAll(".slide-in");
+      if ("IntersectionObserver" in window) {
+        const obs = new IntersectionObserver((entries, observer)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting){
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        }, {threshold:.2});
+        items.forEach(el=>obs.observe(el));
+      } else {
+        items.forEach(el=>el.classList.add("visible"));
+      }
+
+      const p = document.getElementById("pastorPhoto");
+      if (window.matchMedia("(hover:hover)").matches) {
+        p.addEventListener("mouseenter", ()=>p.classList.add("glow"));
+        p.addEventListener("mouseleave", ()=>p.classList.remove("glow"));
+      } else {
+        setTimeout(()=>p.classList.add("glow"), 400);
+        setTimeout(()=>p.classList.remove("glow"), 2200);
+      }
+
+      document.getElementById("yearP").textContent = new Date().getFullYear();
+    })();
+  </script>
+
 </body>
 </html>
