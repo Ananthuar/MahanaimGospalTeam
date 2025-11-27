@@ -1,0 +1,216 @@
+<!--
+  index.html
+  ----------
+  Main landing page for Mahanaim Gospel Team.
+  - UI updated: colorful, accessible buttons (YouTube, WhatsApp, Directions, Email).
+  - Logo: uses assets/images/logo.jpg (replace with your image).
+  - Contact form posts via EmailJS (client-side) or Formspree fallback — see assets/js/email-config.js and assets/js/main.js.
+  - All visible text nodes keep data-i18n attributes for translations.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="site_title">Mahanaim Gospel Team</title>
+  <meta name="description" content="Mahanaim Gospel Team — worship, outreach and community programs." />
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Main theme CSS (replace with your own modifications if needed) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!--
+    Header
+    - Brand uses assets/images/logo.jpg (replace with your logo image).
+    - No underlines on links; all actions are buttons.
+    - Primary CTA has classes for button life effects: btn primary tilt-enabled pulse
+  -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Mahanaim home">
+        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim logo"></div>
+        <div class="brand-text">Mahanaim</div>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#events" data-i18n="nav_events">Events</a>
+        <a href="programmes.html" data-i18n="nav_programmes">Programmes</a>
+        <a href="church.html" data-i18n="nav_church">Mahanaim Worship Center</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="ml">മലയാളം</button>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero container">
+      <div class="hero-card">
+        <span class="kicker">Upcoming</span>
+        <h1 data-i18n="hero_h1">Mahanaim Gospel Team</h1>
+        <p class="lede" data-i18n="hero_lede">Music, worship and outreach from Mahanaim Worship Center — join us in praise and service.</p>
+
+        <!-- Primary CTAs:
+             - 'tilt-enabled' + 'pulse' classes add the life effects via buttons.js and CSS.
+             - onclick scrolls to contact form for quick sign-up.
+        -->
+        <div class="cta-row">
+          <button class="btn primary tilt-enabled pulse" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" id="joinBtn">
+            Join / Contact
+          </button>
+
+          <!-- Get directions button (replace href with your real Google Maps link) -->
+          <a class="btn ghost" id="btn-directions" href="#" role="button">Get Directions</a>
+        </div>
+
+        <!-- Social buttons: YouTube, WhatsApp, Email -->
+        <div style="margin-top:1rem;display:flex;gap:.6rem">
+          <a class="btn social" id="btn-youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="btn social" id="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="btn primary" id="btn-email" href="mailto:mahanaimgospelteam@gmail.com">Email Us</a>
+        </div>
+      </div>
+
+      <aside class="panel-media">
+        <div class="stat">
+          <div class="num">12+</div>
+          <div class="muted">Years of Ministry</div>
+        </div>
+        <div class="stat">
+          <div class="num">250+</div>
+          <div class="muted">Events & Programmes</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section container">
+      <h2 data-i18n="about_title">About the Team</h2>
+      <p class="lead" data-i18n="about_lead">Mahanaim is a family of musicians, singers and ministry leaders passionate about gospel music and community service.</p>
+
+      <div class="features-grid">
+        <div class="feature">
+          <h3 data-i18n="feature_music">Worship & Music</h3>
+          <p data-i18n="feature_music_desc">Live worship, choir training and collaborative music projects.</p>
+        </div>
+        <div class="feature">
+          <h3 data-i18n="feature_outreach">Outreach</h3>
+          <p data-i18n="feature_outreach_desc">Food drives, youth support and neighbourhood care.</p>
+        </div>
+        <div class="feature">
+          <h3 data-i18n="feature_training">Training</h3>
+          <p data-i18n="feature_training_desc">Vocal coaching, instrument lessons and discipleship sessions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events: rendered by main.js (Firestore or static fallback) -->
+    <section id="events" class="section container">
+      <h2 data-i18n="events_title">Events</h2>
+      <div id="events" class="card">
+        <div id="events-placeholder" class="muted tiny">Loading events…</div>
+      </div>
+    </section>
+
+    <!-- Programmes -->
+    <section id="programmes" class="section container">
+      <h2 data-i18n="sermons_heading">Programmes</h2>
+      <p class="tiny muted">Worship nights, workshops and outreach programs.</p>
+
+      <div class="programmes-grid" id="programmes-list">
+        <article class="card programme">
+          <h3>Worship Night — City Hall</h3>
+          <p class="muted">Dec 6, 2025 • 7:00 PM</p>
+          <p class="tiny muted">An evening of praise and testimony.</p>
+        </article>
+
+        <article class="card programme">
+          <h3>Youth Music Workshop</h3>
+          <p class="muted">Jan 18, 2026 • 10:00 AM</p>
+          <p class="tiny muted">Practical music training for youth.</p>
+        </article>
+      </div>
+
+      <p style="margin-top:1rem"><a class="btn ghost" href="programmes.html">See All Programmes</a></p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section container">
+      <h2 data-i18n="contact_title">Contact & Join</h2>
+      <div class="contact-grid">
+        <!-- Contact form — uses EmailJS if configured; else shows helpful message -->
+        <form id="contactForm" class="contact-form card" novalidate>
+          <label>
+            <span data-i18n="form_name">Name</span>
+            <input id="cf-name" name="name" required placeholder="Your name" data-i18n-placeholder="ph_name">
+          </label>
+
+          <label>
+            <span data-i18n="form_email">Email</span>
+            <input id="cf-email" name="email" type="email" required placeholder="you@example.com" data-i18n-placeholder="ph_email">
+          </label>
+
+          <label>
+            <span data-i18n="form_msg">Message</span>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us how you'd like to connect" data-i18n-placeholder="ph_message"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <!-- The button has tilt + pulse classes to bring the "life" -->
+            <button id="cf-submit" type="submit" class="btn primary tilt-enabled">Send Message</button>
+            <button id="cf-reset" type="reset" class="btn ghost">Reset</button>
+          </div>
+
+          <div id="formStatus" class="form-status tiny muted" aria-live="polite"></div>
+        </form>
+
+        <aside class="card">
+          <h3 data-i18n="quick_info">Quick Info</h3>
+          <p><strong data-i18n="email_label">Email:</strong> <a class="btn social" href="mailto:mahanaimgospelteam@gmail.com">mahanaimgospelteam@gmail.com</a></p>
+          <p><strong data-i18n="phone_label">Phone:</strong> <a class="btn ghost" href="tel:+1234567890">+1 (234) 567-890</a></p>
+          <p><strong data-i18n="location_label">Location:</strong> Mahanaim Worship Center, 123 Faith St.</p>
+
+          <h4 data-i18n="support_title">Support</h4>
+          <p data-i18n="support_desc">If you'd like to support our ministry, use the donate button below.</p>
+          <p><a class="btn primary" href="#">Donate</a></p>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong data-i18n="footer_name">Mahanaim Gospel Team</strong>
+        <p class="muted" data-i18n="footer_tag">Worship • Outreach • Community</p>
+      </div>
+      <div class="muted">© <span id="year"></span> Mahanaim</div>
+    </div>
+  </footer>
+
+  <!-- EmailJS SDK (client-side) -->
+  <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
+
+  <!-- Local configuration for email (fill in EMAILJS IDs in this file) -->
+  <script src="assets/js/email-config.js"></script>
+
+  <!-- Main site JS (i18n, events loader, contact handling) -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Button life script (ripple + tilt) -->
+  <script src="assets/js/buttons.js"></script>
+</body>
+</html>

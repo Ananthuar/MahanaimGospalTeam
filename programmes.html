@@ -1,0 +1,79 @@
+<!--
+  programmes.html
+  ---------------
+  Central index of Programmes (used to be 'sermons.html')
+  - List of programmes; each card can include YouTube embed or brief details.
+  - Keep i18n keys for headings; content is sample content for you to update.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title data-i18n="sermons_page_title">Programmes — Mahanaim</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim Logo"></div>
+        <div class="brand-text">Mahanaim</div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_team">Team</a>
+        <a href="programmes.html" data-i18n="nav_programmes">Programmes</a>
+        <a href="pastor.html" data-i18n="nav_pastor">Pastor</a>
+      </nav>
+
+      <div class="header-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="ml">മലയാളം</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 data-i18n="sermons_heading">Programmes</h1>
+    <p class="tiny muted">Programmes include worship nights, training sessions, and outreach events.</p>
+
+    <div class="programmes-grid" style="margin-top:1rem">
+      <article class="card programme">
+        <div>
+          <h3>Worship Night — City Hall</h3>
+          <p class="muted">Dec 6, 2025 • 7:00 PM</p>
+          <p class="tiny muted">An evening of praise and testimonies.</p>
+        </div>
+        <div style="margin-top:.6rem">
+          <iframe width="100%" height="160" src="https://www.youtube.com/embed/ysz5S6PUM-U" title="Programme video" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </article>
+
+      <article class="card programme">
+        <div>
+          <h3>Youth Music Workshop</h3>
+          <p class="muted">Jan 18, 2026 • 10:00 AM</p>
+          <p class="tiny muted">Practical voice and instrument coaching for youth.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer" style="margin-top:2rem">
+    <div class="container footer-grid">
+      <div><strong>Mahanaim Gospel Team</strong></div>
+      <small class="muted">© <span id="year4"></span> Mahanaim</small>
+    </div>
+  </footer>
+
+  <script src="assets/js/email-config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/buttons.js"></script>
+</body>
+</html>

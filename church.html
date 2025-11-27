@@ -1,0 +1,125 @@
+<!--
+  church.html
+  -----------
+  Church page — service times, ministries, pastor teaser.
+  - Reuses same header and theme as index.html.
+  - All text nodes keep data-i18n keys to support translations.
+-->
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="church_title">Mahanaim Worship Center — Worship & Ministries</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim Logo"></div>
+        <div class="brand-text">Mahanaim Worship Center</div>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" data-i18n="nav_team">Team</a>
+        <a href="index.html#events" data-i18n="nav_events">Events</a>
+        <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
+        <a href="church.html" class="btn ghost" data-i18n="nav_church">Church</a>
+      </nav>
+
+      <div class="header-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="ml">മലയാളം</button>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-card">
+        <span class="kicker">A welcoming church family</span>
+        <h1 data-i18n="church_heading">Mahanaim Worship Center</h1>
+        <p class="lede">We gather weekly for worship, training, prayer and outreach. Everyone is welcome.</p>
+
+        <div style="margin-top:1rem">
+          <a class="btn primary" href="#service-times" data-i18n="btn_service_times">Service Times</a>
+          <a class="btn ghost" href="#ministries" data-i18n="btn_our_ministries">Our Ministries</a>
+        </div>
+      </div>
+
+      <aside class="panel-media">
+        <h4 class="tiny muted">Visit Us</h4>
+        <p class="muted">Mahanaim Worship Center • 123 Faith St</p>
+        <div style="margin-top:.8rem"><a class="btn ghost" id="btn-directions-2" href="#">Get Directions</a></div>
+      </aside>
+    </section>
+
+    <section id="service-times" class="section container">
+      <h2 data-i18n="service_title">Service Times</h2>
+      <div class="card">
+        <ul>
+          <li><strong data-i18n="service_sun">Sunday Worship</strong> — 9:00 AM & 11:00 AM</li>
+          <li><strong data-i18n="service_mid">Midweek Prayer</strong> — Wednesday 7:00 PM</li>
+          <li><strong data-i18n="service_youth">Youth Group</strong> — Friday 6:30 PM</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="ministries" class="section container">
+      <h2 data-i18n="ministries_title">Ministries</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <h3 data-i18n="min_children">Children & Youth</h3>
+          <p data-i18n="min_children_desc">Safe, fun programs to help young people grow in faith.</p>
+        </div>
+        <div class="feature">
+          <h3 data-i18n="min_worship">Worship Team</h3>
+          <p data-i18n="min_worship_desc">Mahanaim leads congregational worship, rehearsals weekly.</p>
+        </div>
+        <div class="feature">
+          <h3 data-i18n="min_outreach">Care & Outreach</h3>
+          <p data-i18n="min_outreach_desc">Community support through food distribution and counselling.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pastor" class="section container">
+      <h2 data-i18n="pastor_title">Meet Our Pastor</h2>
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem">
+        <div>
+          <h3>Pastor Jimshu Varghese</h3>
+          <p class="lead">Pastor Jimshu leads with heart for discipleship and community care.</p>
+          <p><a class="btn primary" href="pastor.html" data-i18n="btn_full_profile">Full Pastor Profile</a></p>
+        </div>
+
+        <aside class="card">
+          <img src="assets/images/pastor.jpg" alt="Pastor Jimshu" style="width:100%;border-radius:10px;box-shadow:var(--shadow-md)">
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>Mahanaim Worship Center</strong>
+        <p class="muted">Worship • Outreach • Community</p>
+      </div>
+      <small class="muted">© <span id="year2"></span> Mahanaim Worship Center</small>
+    </div>
+  </footer>
+
+  <script src="assets/js/email-config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/buttons.js"></script>
+</body>
+</html>

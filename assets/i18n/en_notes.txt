@@ -1,0 +1,17 @@
+en_notes.txt
+------------
+This file explains the purpose and keys inside en.json.
+
+- Purpose:
+  The en.json file contains the English strings used across the site. Keys are referenced by the data-i18n attribute.
+
+- Usage:
+  - data-i18n="key_name" -> will be replaced with the value for the active language.
+  - data-i18n-placeholder="key_name" -> will replace input/textarea placeholder.
+
+- Add new keys:
+  1. Add the key:value in en.json and ml.json (keep consistency).
+  2. Add data-i18n or data-i18n-placeholder to the relevant element in the HTML.
+
+- Example:
+  data-i18n="hero_h1"  -> "Mahanaim Gospel Team"

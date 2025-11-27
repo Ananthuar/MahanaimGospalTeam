@@ -1,0 +1,96 @@
+<!--
+  pastor.html
+  -----------
+  Full pastor profile page.
+  - Programmes replaced sermons concept: list of pastor's programmes are shown.
+  - Preserves i18n keys.
+  - All visible text nodes keep data-i18n attributes for translations.
+
+     Pastor profile page — updated with Pastor Jimshu Varghese details.
+     - Pastor: Jimshu Varghese — Married, 3 children
+     - Contact email button present
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="pastor_page_title">Pastor — Jimshu Varghese</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim Logo"></div>
+        <div class="brand-text">Mahanaim</div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" data-i18n="nav_team">Team</a>
+        <a href="programmes.html" data-i18n="nav_programmes">Programmes</a>
+        <a href="church.html" data-i18n="nav_church">Church</a>
+      </nav>
+
+      <div class="header-right">
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="ml">മലയാളം</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top:1.2rem">
+    <section class="card">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1rem">
+        <div>
+          <h1>Pastor Jimshu Varghese</h1>
+          <p class="lead">Pastor Jimshu has served in ministry for many years and brings strong pastoral care, teaching and leadership to Mahanaim Worship Center.</p>
+
+          <h3>Mission & Calling</h3>
+          <p>To call people into a living relationship with Jesus, equip leaders, and serve the city through worship and compassionate action.</p>
+
+          <h3>Contact</h3>
+          <p><strong>Email:</strong> <a class="btn primary" href="mailto:mahanaimgospelteam@gmail.com">mahanaimgospelteam@gmail.com</a></p>
+          <p><strong>Phone:</strong> <a class="btn ghost" href="tel:+1234567890">+1 (234) 567-890</a></p>
+        </div>
+
+        <aside>
+          <img src="assets/images/pastor.jpg" alt="Pastor Jimshu" style="width:100%;border-radius:12px;box-shadow:var(--shadow-md)">
+          <p class="muted" style="margin-top:.6rem">Married — 3 children</p>
+        </aside>
+      </div>
+    </section>
+
+    <section style="margin-top:1rem" class="container">
+      <h2>Programmes by Pastor</h2>
+      <div class="programmes-grid">
+        <article class="card programme">
+          <h3>Discipleship Training</h3>
+          <p class="muted">Monthly leadership training and small-group coaching.</p>
+        </article>
+
+        <article class="card programme">
+          <h3>Community Outreach</h3>
+          <p class="muted">Practical help and support projects around the city.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" style="margin-top:2rem">
+    <div class="container footer-grid">
+      <div><strong>Mahanaim Gospel Team</strong></div>
+      <small class="muted">© <span id="year3"></span> Mahanaim</small>
+    </div>
+  </footer>
+
+  <script src="assets/js/email-config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/buttons.js"></script>
+</body>
+</html>

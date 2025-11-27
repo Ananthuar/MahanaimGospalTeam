@@ -1,0 +1,26 @@
+// firestore.rules
+// Firestore security rules for Mahanaim site
+// - events collection readable by anyone
+// - writes allowed only to authenticated users with custom claim `admin == true`
+// To set custom claim `admin:true` for a user: use Firebase Admin SDK or `firebase auth:import` or via Cloud Functions.
+// See README_FIREBASE.md for instructions.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // events collection: public read
+    match /events/{eventId} {
+      allow get, list: if true; 
+
+      // writes (create/update/delete) allowed only for authenticated users with admin custom claim
+      allow create, update, delete: if request.auth != null 
+         && request.auth.token.admin == true;
+    }
+
+    // Optionally: other collections - lock down by default
+    match /{document=**} {
+      allow read: if false;
+      allow write: if false;
+    }
+  }
+}

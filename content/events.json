@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "id": "evt-2025-12-06",
+      "date": "2025-12-06",
+      "displayDate": "Dec 6, 2025",
+      "title": "Church Anniversary Worship Night",
+      "place": "Grace Community Church • 7:00 PM",
+      "description": "An evening of praise and testimonies. All are welcome."
+    },
+    {
+      "id": "evt-2026-01-18",
+      "date": "2026-01-18",
+      "displayDate": "Jan 18, 2026",
+      "title": "Community Outreach - Food Drive",
+      "place": "Central Park • 10:00 AM",
+      "description": "Volunteer to help distribute care packages and join a short worship set."
+    }
+  ]
+}
