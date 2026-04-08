@@ -19,7 +19,7 @@
 ---
 
 ## 🚀 Live Demo
-> *(Add your deployed Firebase link here)*  
+> *(Deployed firebase link)*  
 👉 https://mahanaimgospelteamwebsite.web.app/
 
 ---
