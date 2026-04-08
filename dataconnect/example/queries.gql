@@ -1,0 +1,45 @@
+query ListAllCampuses @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it lists general information about campuses.") {
+  campuses {
+    id
+    name
+    city
+    country
+    website
+  }
+}
+
+query GetUserPosts($userId: UUID!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it retrieves posts belonging to a specific user.") {
+  posts(where: {authorId: {eq: $userId}}) {
+    id
+    content
+    createdAt
+    imageUrl
+    videoUrl
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+
+mutation CreateNewComment($postId: UUID!, $content: String!) @auth(level: USER) {
+  comment_insert(data: {
+    postId: $postId,
+    authorId_expr: "auth.uid",
+    content: $content,
+    createdAt_expr: "request.time"
+  }) {
+    id
+  }
+}
+
+mutation UpdateUserProfile($userId: UUID!, $bio: String, $linkedinProfile: String) @auth(expr: "auth.uid == $userId") {
+  user_update(key: {id: $userId}, data: {
+    bio: $bio,
+    linkedinProfile: $linkedinProfile,
+    updatedAt_expr: "request.time"
+  }) {
+    id
+  }
+}

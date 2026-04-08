@@ -1,124 +1,111 @@
-<!--
-  programmes.html
-  ---------------
-  Central index of Programmes (used to be 'sermons.html')
-  - List of programmes; each card can include YouTube embed or brief details.
-  - Keep i18n keys for headings; content is sample content for you to update.
--->
-
-<!-- programmes.html
-     Programmes listing page — enhanced animations:
-       - Animated color-shifting wave banner (SVG)
-       - Program cards stagger reveal as they enter the viewport (IntersectionObserver)
-       - YouTube cards scale & tilt on hover (desktop)
--->
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Programmes — Mahanaim</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Programmes | Mahanaim</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="icon" type="image/png" href="assets/icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    /* --------------------
-       PROGRAMMES PAGE - animations
-       -------------------- */
-
-    .wave-banner { position: relative; overflow: hidden; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; background: linear-gradient(90deg, rgba(255,111,0,0.06), rgba(0,176,255,0.04)); box-shadow: var(--shadow-md); }
-    .wave-svg { position:absolute; inset:0; width:100%; height:100%; opacity:0.12; pointer-events:none; mix-blend-mode:screen; }
-    .wave { transform-origin:center; animation: waveDrift 8s linear infinite; }
-    .wave.w2 { animation-duration: 12s; opacity:0.07; transform: translateY(6px) scale(1.02); }
-    @keyframes waveDrift { 0% { transform: translateX(-10%); } 50% { transform: translateX(10%); } 100% { transform: translateX(-10%); } }
-
-    /* programmes cards: initial hidden + staggered reveal */
-    .prog-card { opacity:0; transform: translateY(18px) scale(.995); transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease; will-change: transform, opacity; }
-    .prog-card.visible { opacity:1; transform: translateY(0) scale(1); }
-
-    /* youtube embed card hover */
-    .prog-card .embed { border-radius: 10px; overflow: hidden; transition: transform 300ms ease, box-shadow 300ms ease; }
-    .prog-card:hover .embed { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 48px rgba(0,0,0,0.36); }
-
-    /* small screens: collapse to one column */
-    @media (max-width:767px) {
-      .programmes-grid { grid-template-columns: 1fr !important; }
-      .wave-banner { padding: .8rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .wave, .prog-card { animation: none !important; transition: none !important; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css?v=1.1">
 </head>
+
 <body>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="index.html"><div class="logo-box"><img src="assets/images/logo.jpg" alt="Mahanaim"></div><div class="brand-text">Mahanaim</div></a><nav class="main-nav"><a href="index.html">Team</a><a href="programmes.html">Programmes</a><a href="pastor.html">Pastor</a></nav></div></header>
 
-  <main class="container">
-    <div class="wave-banner" aria-hidden="true">
-      <h1>Programmes</h1>
-      <p class="muted tiny">All programmes organised by Mahanaim — worship nights, workshops and outreach initiatives.</p>
+  <div class="fx-bg-glow"></div>
 
-      <!-- SVG waves (animated) -->
-      <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#FF6F00"/><stop offset="1" stop-color="#00B0FF"/></linearGradient>
-        </defs>
-        <path class="wave" d="M0 80 Q360 0 720 80 T1440 80 V120 H0z" fill="url(#g1)"></path>
-        <path class="wave w2" d="M0 90 Q360 10 720 90 T1440 90 V120 H0z" fill="url(#g1)"></path>
-      </svg>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.jpg" alt="Logo" class="brand-img"
+          onerror="this.src='https://placehold.co/48x48/1e1e2d/FFF?text=M'">
+        <span class="brand-name"><span data-i18n="brandMahanaim">Mahanaim</span> <span class="text-gradient"
+            data-i18n="brandTeam">Team</span></span>
+      </a>
+
+      <nav class="nav-links" id="mainNav">
+        <a href="index.html" data-i18n="navTeam">Team</a>
+        <a href="programmes.html" style="color:var(--text-main);" data-i18n="navProgrammes">Programmes</a>
+        <a href="church.html" data-i18n="navWorshipCenter">Worship Center</a>
+      </nav>
+
+      <div style="display:flex; align-items:center; gap: 1rem;">
+        <button id="langToggle" class="btn btn-outline"
+          style="padding: 0.4rem 0.8rem; font-size: 0.9rem; border-color: var(--glass-border); border-radius: var(--radius-sm); color: var(--text-main);">ML</button>
+        <button class="mobile-toggle" id="mobileToggle"><i class="ph ph-list"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: 150px; padding-bottom: 80px;" class="container">
+
+    <div class="glass-panel" style="text-align: center; margin-bottom: 3rem;">
+      <h1 style="font-size: 3rem;" data-i18n="progTitle"><span class="text-gradient">Our Programmes</span></h1>
+      <p class="text-muted" style="max-width: 600px; margin: 0 auto; font-size: 1.2rem;" data-i18n="progDesc">
+        Worship nights, workshops, and outreach initiatives organized by Mahanaim.
+      </p>
     </div>
 
-    <div id="programmes-list" class="programmes-grid" aria-live="polite">
-      <!-- main.js will populate programme cards here. We add JS to observe and reveal with a small stagger. -->
+    <!-- Container for dynamic scripts -- JS injects straight into here -->
+    <div id="programmes-list" class="cards-grid">
+      <!-- Cards dynamically generated by assets/js/main.js -->
     </div>
+
   </main>
 
-  <footer class="site-footer"><div class="container footer-grid"><div><strong>Mahanaim Gospel Team</strong></div><small class="muted">© <span id="year4"></span></small></div></footer>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <h3 style="margin-bottom: 0;"><span data-i18n="brandMahanaim">Mahanaim</span> Gospel <span
+            data-i18n="brandTeam">Team</span></h3>
+        <p class="text-muted" style="margin-top: 0.5rem;" data-i18n="footerTagline">Worship • Outreach • Community</p>
+      </div>
+      <div class="social-links">
+        <a href="https://www.youtube.com/@mahanaimgospelteam" target="_blank" aria-label="YouTube"><i
+            class="ph ph-youtube-logo"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+      </div>
+    </div>
+  </footer>
 
-  <script src="assets/js/email-config.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/buttons.js"></script>
 
   <script>
-    // After main.js renders the programmes list, we need to attach reveal observer + stagger.
-    (function(){
-      // observe for child list changes in #programmes-list so we set up reveals when content arrives
-      const container = document.getElementById('programmes-list');
-      if (!container) return;
+    const header = document.querySelector('.site-header');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('mainNav');
 
-      function initReveal() {
-        const cards = container.querySelectorAll('.card.programme, .card');
-        if (!cards || cards.length === 0) return;
-        // staggered reveal using IntersectionObserver
-        if ('IntersectionObserver' in window) {
-          const io = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                const el = entry.target;
-                // add delay based on index to create cascade
-                const idx = Array.from(cards).indexOf(el);
-                setTimeout(() => el.classList.add('visible','prog-card'), idx * 110);
-                obs.unobserve(el);
-              }
-            });
-          }, { threshold: 0.12 });
-          cards.forEach(c => io.observe(c));
-        } else {
-          cards.forEach((c,i) => setTimeout(()=>c.classList.add('visible','prog-card'), i*90));
-        }
-      }
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 50 ? 'rgba(5, 5, 15, 0.9)' : 'rgba(5, 5, 15, 0.4)';
+    });
 
-      // MutationObserver to detect when main.js injects cards
-      const mo = new MutationObserver((mutations) => {
-        for (const m of mutations) {
-          if (m.addedNodes && m.addedNodes.length) { setTimeout(initReveal, 80); break; }
-        }
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Animate cards magically on inject
+    const container = document.getElementById('programmes-list');
+    if (container) {
+      const mo = new MutationObserver(() => {
+        const cards = container.querySelectorAll('.card');
+        cards.forEach((card, idx) => {
+          if (!card.dataset.animated) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.dataset.animated = 'true';
+            setTimeout(() => {
+              card.style.transition = 'all 0.4s ease';
+              card.style.opacity = '1';
+              card.style.transform = 'none';
+            }, idx * 100);
+          }
+        });
       });
       mo.observe(container, { childList: true, subtree: true });
-
-      // If content already present (cached), init immediately
-      setTimeout(initReveal, 300);
-    })();
+    }
   </script>
 </body>
+
 </html>

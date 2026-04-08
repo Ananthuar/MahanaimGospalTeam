@@ -1,0 +1,54 @@
+type User @table {
+  firstName: String!
+  lastName: String!
+  email: String!
+  campus: Campus!
+  photoUrl: String
+  bio: String
+  program: String
+  graduationYear: Int
+  linkedinProfile: String
+  createdAt: Timestamp
+  updatedAt: Timestamp
+}
+
+type Campus @table {
+  name: String!
+  city: String!
+  country: String!
+  website: String
+}
+
+type Post @table {
+  author: User!
+  content: String!
+  createdAt: Timestamp!
+  imageUrl: String
+  videoUrl: String
+}
+
+type Comment @table {
+  author: User!
+  post: Post!
+  content: String!
+  createdAt: Timestamp!
+}
+
+type Connection @table {
+  fromUser: User!
+  toUser: User!
+  status: String!
+  createdAt: Timestamp!
+}
+
+type Event @table {
+  campus: Campus!
+  title: String!
+  description: String!
+  eventDate: Timestamp!
+  location: String!
+  imageUrl: String
+  registrationLink: String
+  createdAt: Timestamp
+  updatedAt: Timestamp
+}

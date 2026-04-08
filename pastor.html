@@ -1,256 +1,158 @@
-<!--
-  pastor.html
-  -----------
-  Full pastor profile page.
-  - Programmes replaced sermons concept: list of pastor's programmes are shown.
-  - Preserves i18n keys.
-  - All visible text nodes keep data-i18n attributes for translations.
-
-     Pastor profile page — updated with Pastor Jimshu Varghese details.
-     - Pastor: Jimshu Varghese — Married, 3 children
-     - Contact email button present
--->
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pastor — Jimshu Varghese</title>
+  <title>Pastor Jimshu Varghese | Mahanaim</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="icon" type="image/png" href="assets/icon.png">
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-
+  <link rel="stylesheet" href="assets/css/style.css?v=1.1">
   <style>
-    /***********************************************
-      🕊️ HOLY SPIRIT DOVE PARTICLES (BIG + GLOWING)
-      - Pure CSS (no images)
-      - Soft wing-shaped glowing particles
-      - Much bigger than ember version
-      - Visible on all devices
-    ***********************************************/
-
-    body { 
-      position: relative; 
-      z-index: 0; 
-      overflow-x: hidden; 
-      background: #080a11;
-      color: white;
-    }
-
-    /* Background glow waves */
-    .glow-waves {
-      position: fixed;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      background: radial-gradient(circle at 60% 80%, rgba(255,130,40,0.25), transparent 55%),
-                  radial-gradient(circle at 20% 20%, rgba(255,200,80,0.22), transparent 60%),
-                  radial-gradient(circle at 80% 30%, rgba(255,80,0,0.18), transparent 50%);
-      filter: blur(70px);
-      animation: waveShift 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes waveShift {
-      0% { transform: translateY(0) scale(1); opacity: 0.85; }
-      100% { transform: translateY(-3%) scale(1.06); opacity: 1; }
-    }
-
-    /* Dove particle field */
-    .doves {
-      position: fixed;
-      inset: 0;
-      z-index: 5;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    /* Dove shape (pure CSS)
-       - uses two wing-like blurred ellipses
-       - soft glowing white/orange tone
-    */
-    .dove {
-      position: absolute;
-      width: var(--size);
-      height: calc(var(--size) * 0.6);
-      opacity: var(--opacity);
-      left: var(--left);
-      animation: doveFloat var(--dur) ease-in-out infinite;
-      transform: translateY(100vh) rotate(var(--rot));
-    }
-
-    /* LEFT WING */
-    .dove::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      width: 65%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.9), rgba(255,180,60,0.4), transparent);
-      filter: blur(6px);
-      border-radius: 50%;
-      transform: rotate(-35deg) translate(-20%, -10%);
-    }
-
-    /* RIGHT WING */
-    .dove::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      width: 65%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 40%, rgba(255,240,200,0.9), rgba(255,150,50,0.35), transparent);
-      filter: blur(6px);
-      border-radius: 50%;
-      transform: rotate(35deg) translate(55%, -10%);
-    }
-
-    /* Bigger, slower floating motion */
-    @keyframes doveFloat {
-      0%   { transform: translateY(100vh) rotate(var(--rot)) scale(0.9); opacity: 0; }
-      15%  { opacity: var(--opacity); }
-      55%  { transform: translateY(-10vh) rotate(calc(var(--rot) + 5deg)) scale(1.08); opacity: var(--opacity); }
-      100% { transform: translateY(-25vh) rotate(calc(var(--rot) + 10deg)) scale(1.2); opacity: 0; }
-    }
-
-    header, main, footer { position: relative; z-index: 20; }
-
-    /* Slide-in effect */
-    .slide-in { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
-    .slide-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* Pastor photo glow */
     .pastor-photo {
       width: 100%;
-      border-radius: 14px;
-      display: block;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.45);
-      transition: 450ms ease;
-    }
-    .pastor-photo.glow {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow:
-        0 22px 60px rgba(255,130,40,0.35),
-        0 10px 30px rgba(255,200,80,0.22);
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      box-shadow: 0 15px 50px rgba(138, 43, 226, 0.3);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      z-index: 2;
     }
 
+    .photo-wrapper {
+      position: relative;
+    }
+
+    .photo-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      bottom: 10px;
+      left: 10px;
+      background: var(--grad-vibrant);
+      border-radius: var(--radius-lg);
+      z-index: 1;
+      opacity: 0.6;
+      filter: blur(20px);
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Background Glow -->
-  <div class="glow-waves" aria-hidden="true"></div>
+  <div class="fx-bg-glow"></div>
 
-  <!-- 🕊️ Holy Doves -->
-  <div class="doves" aria-hidden="true">
-    <!-- Bigger dove particles -->
-    <div class="dove" style="--size:95px;  --left:10%; --opacity:.45; --dur:14s; --rot:4deg;"></div>
-    <div class="dove" style="--size:120px; --left:25%; --opacity:.50; --dur:18s; --rot:-3deg;"></div>
-    <div class="dove" style="--size:140px; --left:45%; --opacity:.55; --dur:16s; --rot:2deg;"></div>
-    <div class="dove" style="--size:110px; --left:65%; --opacity:.42; --dur:20s; --rot:-6deg;"></div>
-    <div class="dove" style="--size:150px; --left:80%; --opacity:.48; --dur:22s; --rot:3deg;"></div>
-  </div>
-
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <div class="logo-box"><img src="assets/images/logo.jpg" alt=""></div>
-        <div class="brand-text">Mahanaim</div>
+        <img src="assets/images/logo.jpg" alt="Logo" class="brand-img"
+          onerror="this.src='https://placehold.co/48x48/1e1e2d/FFF?text=M'">
+        <span class="brand-name"><span data-i18n="brandMahanaim">Mahanaim</span> <span class="text-gradient"
+            data-i18n="brandTeam">Team</span></span>
       </a>
 
-      <nav class="main-nav">
-        <a href="index.html">Team</a>
-        <a href="programmes.html">Programmes</a>
-        <a href="church.html">Church</a>
+      <nav class="nav-links" id="mainNav">
+        <a href="index.html" data-i18n="navTeam">Team</a>
+        <a href="programmes.html" data-i18n="navProgrammes">Programmes</a>
+        <a href="church.html" data-i18n="navWorshipCenter">Worship Center</a>
       </nav>
+
+      <div style="display:flex; align-items:center; gap: 1rem;">
+        <button id="langToggle" class="btn btn-outline"
+          style="padding: 0.4rem 0.8rem; font-size: 0.9rem; border-color: var(--glass-border); border-radius: var(--radius-sm); color: var(--text-main);">ML</button>
+        <button class="mobile-toggle" id="mobileToggle"><i class="ph ph-list"></i></button>
+      </div>
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="container" style="padding-top:1.8rem;">
-    <section class="card" style="padding:1.8rem;">
-      <div style="display:grid; grid-template-columns:2fr 1fr; gap:2rem; align-items:start;">
+  <main style="padding-top: 150px; padding-bottom: 80px;" class="container">
+    <div class="glass-panel" style="padding: 3rem;">
+      <div class="profile-grid">
 
-        <div>
-          <h1 class="slide-in">Pastor Jimshu Varghese</h1>
-          <p class="lead slide-in">
-            Pastor Jimshu leads Mahanaim Worship Center with a calling to serve God through prayer, teaching, worship and discipleship. His ministry has transformed many lives through God's grace.
-          </p>
+        <!-- Pastor Image Column -->
+        <div class="photo-wrapper">
+          <img src="assets/images/pastor.jpg" class="pastor-photo" alt="Pr. Jimshu Varghese"
+            onerror="this.src='https://placehold.co/600x800/1e1e2d/FFF?text=Pr.+Jimshu'">
 
-          <h3 class="slide-in">Mission & Calling</h3>
-          <p class="slide-in">
-            To raise strong believers, minister to families, support youth and spread the Gospel with compassion and Holy Spirit fire.
-          </p>
-
-          <h3 class="slide-in">Contact</h3>
-          <p class="slide-in"><strong>Email:</strong>
-            <a class="btn primary" href="mailto:mahanaimgospelteam@gmail.com">
-              mahanaimgospalteam@gmail.com
-            </a>
-          </p>
-
-          <p class="slide-in"><strong>Phone:</strong>
-            <a class="btn ghost" href="tel:9496419741">9496419741</a>
-          </p>
-
-          <p class="slide-in"><strong>Family:</strong> Married — 3 children</p>
+          <div class="glass-panel" style="margin-top: 2rem; padding: 1.5rem; text-align: center;">
+            <p style="margin:0; font-family:'Outfit'; font-size:1.1rem; color:var(--text-muted);"
+              data-i18n="familyTitle"><i class="ph ph-users" style="color:var(--color-secondary);"></i> Family</p>
+            <p style="margin: 0.5rem 0 0; font-weight:600;" data-i18n="marriedDescPastor">Married — 3 children</p>
+          </div>
         </div>
 
-        <aside>
-          <img id="pastorPhoto" class="pastor-photo" src="assets/images/pastor.jpg">
-        </aside>
+        <!-- Pastor Info Column -->
+        <div class="pastor-info">
+          <h1 style="font-size: 3rem; margin-bottom: 0.5rem;" data-i18n="pastorSectionTitle">Pr. Jimshu <span
+              class="text-gradient-alt">Varghese</span>
+          </h1>
+          <p class="text-gradient" style="font-size: 1.25rem; font-weight:600; margin-bottom: 2rem;"
+            data-i18n="pastorSubtitle">Lead Pastor,
+            Mahanaim Worship Center</p>
+
+          <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 2rem;" data-i18n="pastorBio">
+            Pastor Jimshu leads Mahanaim Worship Center with a calling to serve God through prayer, teaching, worship
+            and discipleship. His ministry has transformed many lives through God's grace.
+          </p>
+
+          <h3 style="color: var(--text-main);" data-i18n="missionTitle"><i class="ph ph-cross"
+              style="color:var(--color-primary);"></i> Mission &
+            Calling</h3>
+          <p class="text-muted" style="margin-bottom: 2.5rem;" data-i18n="missionDesc">
+            To raise strong believers, minister to families, support youth and spread the Gospel with compassion and
+            Holy Spirit fire.
+          </p>
+
+          <h3 style="color: var(--text-main);" data-i18n="contactInfoTitle"><i class="ph ph-phone-call"
+              style="color:var(--color-secondary);"></i>
+            Contact Info</h3>
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+            <a href="mailto:mahanaimgospelteam@gmail.com" class="btn btn-outline"
+              style="justify-content: flex-start; width: max-content;">
+              <i class="ph ph-envelope-simple text-gradient"></i> mahanaimgospelteam@gmail.com
+            </a>
+            <a href="tel:9496419741" class="btn btn-outline" style="justify-content: flex-start; width: max-content;">
+              <i class="ph ph-phone text-gradient-alt"></i> +91 94964 19741
+            </a>
+          </div>
+        </div>
 
       </div>
-    </section>
+    </div>
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div><strong>Mahanaim Gospel Team</strong></div>
-      <small class="muted">© <span id="yearP"></span></small>
+    <div class="container footer-inner">
+      <div>
+        <h3 style="margin-bottom: 0;"><span data-i18n="brandMahanaim">Mahanaim</span> Gospel <span
+            data-i18n="brandTeam">Team</span></h3>
+        <p class="text-muted" style="margin-top: 0.5rem;" data-i18n="footerTagline">Worship • Outreach • Community</p>
+      </div>
+      <div class="social-links">
+        <a href="https://www.youtube.com/@mahanaimgospelteam" target="_blank" aria-label="YouTube"><i
+            class="ph ph-youtube-logo"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+      </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="assets/js/email-config.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/buttons.js"></script>
+  <script src="assets/js/i18n.js"></script>
 
   <script>
-    (function(){
-      const items = document.querySelectorAll(".slide-in");
-      if ("IntersectionObserver" in window) {
-        const obs = new IntersectionObserver((entries, observer)=>{
-          entries.forEach(e=>{
-            if(e.isIntersecting){
-              e.target.classList.add("visible");
-              observer.unobserve(e.target);
-            }
-          });
-        }, {threshold:.2});
-        items.forEach(el=>obs.observe(el));
-      } else {
-        items.forEach(el=>el.classList.add("visible"));
-      }
+    const header = document.querySelector('.site-header');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('mainNav');
 
-      const p = document.getElementById("pastorPhoto");
-      if (window.matchMedia("(hover:hover)").matches) {
-        p.addEventListener("mouseenter", ()=>p.classList.add("glow"));
-        p.addEventListener("mouseleave", ()=>p.classList.remove("glow"));
-      } else {
-        setTimeout(()=>p.classList.add("glow"), 400);
-        setTimeout(()=>p.classList.remove("glow"), 2200);
-      }
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 50 ? 'rgba(5, 5, 15, 0.9)' : 'rgba(5, 5, 15, 0.4)';
+    });
 
-      document.getElementById("yearP").textContent = new Date().getFullYear();
-    })();
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
   </script>
-
 </body>
+
 </html>
