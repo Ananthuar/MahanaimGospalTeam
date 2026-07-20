@@ -36,7 +36,7 @@ const Pastor = () => {
                         <div className="absolute -inset-1 bg-gradient-to-tr from-amber-200 to-amber-600 rounded-3xl blur-xl opacity-30"></div>
                         <div className="relative glass-panel rounded-3xl aspect-[3/4] flex items-center justify-center overflow-hidden group">
                             <img
-                                src="/assets/images/pastor.jpg"
+                                src="/assets/images/pastor.jpeg"
                                 alt="Pastor Jimshu Varghese"
                                 className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                                 onError={(e) => { e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"; }}

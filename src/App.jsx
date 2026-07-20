@@ -86,36 +86,58 @@ const Navbar = () => {
                 </button>
             </div>
 
-            {/* Mobile Nav */}
+            {/* Mobile Nav Drawer */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 w-full bg-[#060913]/98 backdrop-blur-2xl border-b border-white/5 py-4 px-6 md:hidden flex flex-col shadow-2xl"
-                    >
-                        <div className="flex justify-between items-center py-4 border-b border-white/5 mb-4">
-                            <span className="text-sm font-semibold tracking-wider text-slate-400 uppercase">Language</span>
-                            <button
-                                onClick={() => { toggleLang(); setIsOpen(false); }}
-                                className="flex items-center gap-2 bg-white/[0.05] border border-white/10 rounded-full py-2 px-6 transition-all text-sm font-bold tracking-wider text-amber-400"
-                            >
-                                <i className="ph-bold ph-translate text-lg"></i>
-                                {i18n.language === 'en' ? 'മലയാളം (ML)' : 'ENGLISH (EN)'}
-                            </button>
-                        </div>
-                        {links.map((link) => (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                onClick={() => setIsOpen(false)}
-                                className={`text-xl font-bold py-4 border-b border-white/5 ${isActive(link.path) ? 'text-amber-400' : 'text-slate-300'}`}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
-                    </motion.div>
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsOpen(false)}
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden"
+                            style={{ zIndex: 60 }}
+                        />
+                        <motion.div
+                            initial={{ x: "100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "100%" }}
+                            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                            className="fixed top-0 right-0 w-[85vw] max-w-[400px] h-screen bg-[#060913] border-l border-white/10 p-6 shadow-2xl md:hidden overflow-y-auto"
+                            style={{ zIndex: 70 }}
+                        >
+                            <div className="flex justify-between items-center mb-10 pt-4">
+                                <span className="font-bold text-white text-xl tracking-tight">Menu</span>
+                                <button className="p-2 text-slate-300 hover:text-white bg-white/5 rounded-full" onClick={() => setIsOpen(false)}>
+                                    <X size={24} />
+                                </button>
+                            </div>
+
+                            <div className="flex justify-between items-center py-4 border-b border-white/5 mb-6">
+                                <span className="text-sm font-semibold tracking-wider text-slate-400 uppercase">Language</span>
+                                <button
+                                    onClick={() => { toggleLang(); }}
+                                    className="flex items-center gap-2 bg-white/[0.05] border border-white/10 rounded-full py-2 px-6 transition-all text-sm font-bold tracking-wider text-amber-400"
+                                >
+                                    <i className="ph-bold ph-translate text-lg"></i>
+                                    {i18n.language === 'en' ? 'മലയാളം (ML)' : 'ENGLISH (EN)'}
+                                </button>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                {links.map((link) => (
+                                    <Link
+                                        key={link.path}
+                                        to={link.path}
+                                        onClick={() => setIsOpen(false)}
+                                        className={`text-xl font-bold py-4 px-4 rounded-xl transition-colors ${isActive(link.path) ? 'text-amber-400 bg-amber-500/10' : 'text-slate-300 hover:bg-white/5'}`}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
         </header>
@@ -161,7 +183,7 @@ const PageTransition = ({ children }) => {
 function App() {
     return (
         <BrowserRouter>
-            <div className="min-h-screen flex flex-col relative w-full font-sans pt-24 text-slate-50">
+            <div className="min-h-screen flex flex-col relative w-full font-sans pt-24 text-slate-50 overflow-x-hidden">
                 <div className="fx-bg-glow"></div>
                 <Navbar />
 

@@ -17,16 +17,16 @@ const Home = () => {
                         transition={{ duration: 0.6 }}
                         className="flex flex-col gap-6"
                     >
-                        <div className="inline-flex items-center gap-2 bg-white/[0.03] border border-white/5 rounded-full px-4 py-1.5 w-fit">
-                            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                            <span className="text-sm text-slate-300 font-medium truncate max-w-full">{t('home.welcome')}</span>
+                        <div className="inline-flex items-center gap-3 bg-white/[0.03] border border-white/5 rounded-full px-5 py-2">
+                            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+                            <span className="text-sm text-slate-300 font-medium text-left break-words">{t('home.welcome')}</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white break-words overflow-hidden">
                             {t('home.hero_h1_1')} <br /> {t('home.hero_h1_2')} <span className="text-gradient">{t('home.hero_h1_3')} <br /> {t('home.hero_h1_4')}</span>
                         </h1>
 
-                        <p className="text-lg text-slate-400 max-w-lg leading-relaxed font-light">
+                        <p className="text-lg text-slate-400 max-w-lg leading-relaxed font-light break-words">
                             {t('home.hero_desc')}
                         </p>
 
@@ -81,7 +81,7 @@ const Home = () => {
             <section id="about" className="py-32 relative text-center flex flex-col items-center">
                 <div className="container mx-auto px-6">
                     <div className="mb-20">
-                        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">{t('home.who_we_are')} <span className="text-gradient">{t('home.who_we_are_highlight')}</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight break-words">{t('home.who_we_are')} <span className="text-gradient">{t('home.who_we_are_highlight')}</span></h2>
                         <div className="w-20 h-1 bg-amber-500/50 mx-auto rounded-full"></div>
                     </div>
 
@@ -124,8 +124,8 @@ const Home = () => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#060913]/90 via-[#060913]/20 to-transparent"></div>
                                 </div>
                                 <div className="px-4 pb-4">
-                                    <h3 className="text-2xl font-bold mb-4 text-white tracking-tight">{feature.title}</h3>
-                                    <p className="text-slate-400 text-base leading-relaxed font-light">{feature.desc}</p>
+                                    <h3 className="text-2xl font-bold mb-4 text-white tracking-tight break-words">{feature.title}</h3>
+                                    <p className="text-slate-400 text-base leading-relaxed font-light break-words">{feature.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
