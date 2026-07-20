@@ -1,35 +1,37 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Programmes = () => {
+    const { t } = useTranslation();
     const programmes = [
         {
-            title: 'Youth Ministry "Ignite"',
-            desc: 'Empowering the next generation to be passionate followers of Christ through engaging sessions, music, and mentorship.',
+            title: t('programmes.list.1_title'),
+            desc: t('programmes.list.1_desc'),
             icon: 'ph-fire',
             color: 'text-amber-500',
             bg: 'bg-amber-500/10',
             border: 'border-amber-500/20'
         },
         {
-            title: 'Women of Grace',
-            desc: 'A fellowship dedicated to strengthening the faith of women, providing support, prayer circles, and biblical teachings.',
+            title: t('programmes.list.2_title'),
+            desc: t('programmes.list.2_desc'),
             icon: 'ph-flower-tulip',
             color: 'text-sky-400',
             bg: 'bg-sky-500/10',
             border: 'border-sky-500/20'
         },
         {
-            title: 'Community Outreach',
-            desc: 'Going beyond our walls to serve the local community. Food drives, educational support, and sharing hope where it is needed most.',
+            title: t('programmes.list.3_title'),
+            desc: t('programmes.list.3_desc'),
             icon: 'ph-hand-heart',
             color: 'text-rose-400',
             bg: 'bg-rose-500/10',
             border: 'border-rose-500/20'
         },
         {
-            title: 'Global Missions',
-            desc: 'Supporting missionaries worldwide and conducting short-term trips to preach the gospel and establish new communities of believers.',
+            title: t('programmes.list.4_title'),
+            desc: t('programmes.list.4_desc'),
             icon: 'ph-globe-stand',
             color: 'text-emerald-400',
             bg: 'bg-emerald-500/10',
@@ -46,7 +48,7 @@ const Programmes = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight"
                     >
-                        Our <span className="text-gradient">Programmes</span>
+                        {t('programmes.title_1')} <span className="text-gradient">{t('programmes.title_2')}</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0 }}
@@ -54,7 +56,7 @@ const Programmes = () => {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-slate-400 max-w-2xl mx-auto font-light leading-relaxed"
                     >
-                        Discover the various ministries and programmes we offer. There's a place for everyone to serve, grow, and connect.
+                        {t('programmes.desc')}
                     </motion.p>
                 </div>
 

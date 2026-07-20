@@ -1,0 +1,101 @@
+{
+    "nav": {
+        "home": "Home",
+        "worship_center": "Worship Center",
+        "programmes": "Programmes",
+        "worship_team": "Worship Team",
+        "pastor": "Pastor"
+    },
+    "brand": {
+        "name": "Mahanaim Gospel",
+        "sub": "Ministries International"
+    },
+    "home": {
+        "welcome": "Welcome to Mahanaim Gospel Ministries International",
+        "hero_h1_1": "Experience the",
+        "hero_h1_2": "Power of",
+        "hero_h1_3": "Worship",
+        "hero_h1_4": "& Grace",
+        "hero_desc": "Join Mahanaim Gospel Ministries International. Let's impact the world through anointed music, powerful outreach, and transformational community service.",
+        "btn_join": "Join Our Mission",
+        "btn_learn": "Learn More",
+        "stats": {
+            "years": "Years of Ministry",
+            "events": "Impactful Events"
+        },
+        "btn_directions": "Get Directions",
+        "who_we_are": "Who We",
+        "who_we_are_highlight": "Are",
+        "features": {
+            "music_title": "Worship & Music",
+            "music_desc": "Live worship sessions, dedicated choir training, and collaborative gospel music projects aimed at spiritual elevation.",
+            "outreach_title": "Global Outreach",
+            "outreach_desc": "Gospel Ministries dedicated to spreading the message of love and salvation around the nation and across borders.",
+            "training_title": "Spiritual Training",
+            "training_desc": "Equipping the next generation of leaders. Preparing those thirsty for truth to become men and women of God."
+        },
+        "contact_title": "Let's",
+        "contact_title_highlight": "Connect",
+        "contact_desc": "Have questions, prayer requests, or want to join the team? We'd love to hear from you.",
+        "email_us": "Email Us",
+        "call_us": "Call Us",
+        "form_name": "Your Name",
+        "form_email": "Email Address",
+        "form_message": "Message",
+        "form_send": "Send Message",
+        "form_alert": "Our messaging system is currently being set up. Please contact us directly via email or our mobile number for now!"
+    },
+    "center": {
+        "title_1": "Mahanaim Gospel",
+        "title_2": "Worship Center",
+        "desc": "A place of revival, healing, and intimate worship. Join our community and experience the presence of God in every service.",
+        "timings": "Service Timings",
+        "sun": "Sunday Worship",
+        "tue": "Tuesday Special Prayer",
+        "fri": "Friday Special Online Meetings",
+        "sat": "Saturday Night Prayer",
+        "other_meetings": "Other meetings as announced.",
+        "visit": "Visit Us Today",
+        "visit_desc": "Find us at our central location and become part of the family.",
+        "btn_maps": "Open in Maps"
+    },
+    "programmes": {
+        "title_1": "Our",
+        "title_2": "Programmes",
+        "desc": "Discover the various ways we spread the gospel and nurture believers through dedicated ministries.",
+        "list": {
+            "1_title": "Sunday School & Youth Gatherings",
+            "1_desc": "Empowering the next generation with biblical foundations and fellowship.",
+            "2_title": "Community Fasting Prayers",
+            "2_desc": "Special fasting prayers held every week to intercede for our community and nation.",
+            "3_title": "Music & Worship Training",
+            "3_desc": "Dedicated sessions to train upcoming musicians and worship leaders.",
+            "4_title": "Outreach & Evangelism",
+            "4_desc": "Taking the gospel to the streets and neighboring towns through open-air meetings."
+        }
+    },
+    "team": {
+        "title": "The Mahanaim",
+        "title_highlight": "Worship Team",
+        "desc": "A collective of passionate, Spirit-led musicians, vocalists, and creatives committed to leading the congregation into the deep presence of God.",
+        "leader_badge": "Worship Leader",
+        "leader_role": "Lead Vocalist & Music Director",
+        "leader_desc": "Prasanth leads the worship ministry with an immense passion for the presence of God. With years of experience in musical direction, he oversees the band, choir, and creative arts within Mahanaim.",
+        "social": "Connect with Prasanth"
+    },
+    "pastor": {
+        "title_1": "Our",
+        "title_2": "Senior Pastor",
+        "desc": "Meet Pastor Jimshu Varghese, a dedicated servant of God, leading Mahanaim Gospel Ministries with a passion for souls and a heart for revival.",
+        "badge": "Senior Pastor",
+        "bio_title": "About Pastor Jimshu",
+        "bio_1": "Pastor Jimshu Varghese has been the foundational pillar of Mahanaim Gospel Ministries International. With a deep, uncompromising calling to share the Word of God, he has dedicated his life to pastoring the Mahanaim Worship Center in Chelakkara.",
+        "bio_2": "He is blessed with his wife and three wonderful children, who faithfully stand alongside him in ministry. Together, their family exemplifies a deep commitment to community service, spiritual mentorship, and the global spread of the Gospel.",
+        "mission": "Mission & Calling",
+        "mission_desc": "His life's mission is to raise up a generation of uncompromising believers, rooted firmly in the scriptures, ready to manifest the power of the Holy Spirit across the globe."
+    },
+    "footer": {
+        "brand_sub": "Ministries International",
+        "desc": "Transforming lives through powerful worship, global outreach, and deeply rooted community service."
+    }
+}

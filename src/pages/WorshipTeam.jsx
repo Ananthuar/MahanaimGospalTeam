@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const WorshipTeam = () => {
+    const { t } = useTranslation();
     return (
         <div className="w-full py-24 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-sky-500/10 blur-[150px] rounded-full pointer-events-none"></div>
@@ -13,7 +15,7 @@ const WorshipTeam = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight"
                     >
-                        Mahanaim Gospel <br /><span className="text-gradient">Worship Team</span>
+                        {t('team.title')} <br /><span className="text-gradient">{t('team.title_highlight')}</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0 }}
@@ -21,8 +23,7 @@ const WorshipTeam = () => {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-slate-400 font-light leading-relaxed"
                     >
-                        We produce musics, conduct worship leading services, and aim to bring transformative encounters with the Holy Spirit through anointed melodies.
-                        Join us in lifting up His name with everything we have.
+                        {t('team.desc')}
                     </motion.p>
                 </div>
 
@@ -44,7 +45,7 @@ const WorshipTeam = () => {
                             />
                             <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#060913] via-[#060913]/80 to-transparent p-10 flex flex-col justify-end">
                                 <h3 className="text-3xl font-bold text-white mb-2">Prashanth Gopinath</h3>
-                                <p className="text-amber-400 font-semibold tracking-wide uppercase text-sm">Worship Leader</p>
+                                <p className="text-amber-400 font-semibold tracking-wide uppercase text-sm">{t('team.leader_badge')}</p>
                             </div>
                         </div>
                     </motion.div>
@@ -59,9 +60,9 @@ const WorshipTeam = () => {
                             <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-2xl mb-6">
                                 <i className="ph-fill ph-music-notes"></i>
                             </div>
-                            <h4 className="text-2xl font-bold text-white mb-3">Original Productions</h4>
+                            <h4 className="text-2xl font-bold text-white mb-3">{t('team.leader_role')}</h4>
                             <p className="text-slate-400 text-base leading-relaxed font-light">
-                                We write, compose, and produce original gospel music aiming to resource the global church. Our songs are birthed from our own times of prayer and intimate worship.
+                                {t('team.leader_desc')}
                             </p>
                         </div>
 
@@ -69,9 +70,9 @@ const WorshipTeam = () => {
                             <div className="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center text-2xl mb-6">
                                 <i className="ph-fill ph-microphone-stage"></i>
                             </div>
-                            <h4 className="text-2xl font-bold text-white mb-3">Worship Services</h4>
+                            <h4 className="text-2xl font-bold text-white mb-3">{t('team.social')}</h4>
                             <p className="text-slate-400 text-base leading-relaxed font-light">
-                                Hosting energetic and spiritually rich worship services to lead congregations into God's presence, focusing on authenticity, surrender, and prophetic flows.
+                                Follow our Worship team on our official channels for latest releases.
                             </p>
                         </div>
 

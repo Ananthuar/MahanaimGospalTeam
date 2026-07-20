@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Pastor = () => {
+    const { t } = useTranslation();
     return (
         <div className="w-full py-20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none"></div>
@@ -13,7 +15,7 @@ const Pastor = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight"
                     >
-                        Senior <span className="text-gradient">Pastor</span>
+                        {t('pastor.title_1')} <span className="text-gradient">{t('pastor.title_2')}</span>
                     </motion.h1>
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -51,16 +53,14 @@ const Pastor = () => {
                         className="flex flex-col gap-6"
                     >
                         <div>
-                            <h2 className="text-3xl font-bold mb-1">Pastor Jimshu Varghese</h2>
-                            <p className="text-amber-400 uppercase tracking-widest text-sm font-semibold mb-6">Founder & Lead Servant</p>
+                            <h2 className="text-3xl font-bold mb-1">{t('pastor.bio_title')}</h2>
+                            <p className="text-amber-400 uppercase tracking-widest text-sm font-semibold mb-6">{t('pastor.badge')}</p>
                             <div className="space-y-4 text-slate-300 leading-relaxed text-lg">
                                 <p>
-                                    With over two decades of dedicated ministry experience, our Senior Pastor has been the guiding visionary for Mahanaim Gospel Ministries International.
-                                    Driven by a profound passion for seeing lives transformed through the uncompromised Word of God and the power of the Holy Spirit.
+                                    {t('pastor.bio_1')}
                                 </p>
                                 <p>
-                                    Committed to raising a generation of spiritually resilient leaders, the Pastor's teachings emphasize grace, biblical integrity, and practical faith.
-                                    Under this leadership, our community has grown into a vibrant, multi-generational family bound by love and purpose.
+                                    {t('pastor.bio_2')}
                                 </p>
                             </div>
                         </div>
