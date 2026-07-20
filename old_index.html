@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mahanaim Gospel Team | Worship & Ministry</title>
+  <meta name="description" content="Mahanaim Gospel Team — worship, outreach and community programs." />
+
+  <!-- Icons (Phosphor Icons for modern sleek look) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.1">
+</head>
+
+<body>
+
+  <!-- Global Particle FX Layer -->
+  <div class="fx-bg-glow"></div>
+
+  <!-- Header Section -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/images/logo.jpg" alt="Logo" class="brand-img"
+          onerror="this.src='https://placehold.co/48x48/1e1e2d/FFF?text=M'">
+        <span class="brand-name"><span data-i18n="brandMahanaim">Mahanaim</span> <span class="text-gradient"
+            data-i18n="brandTeam">Team</span></span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links" id="mainNav">
+        <a href="#about" data-i18n="navAbout">About</a>
+        <a href="programmes.html" data-i18n="navProgrammes">Programmes</a>
+        <a href="church.html" data-i18n="navWorshipCenter">Worship Center</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
+      </nav>
+
+      <div style="display:flex; align-items:center; gap: 1rem;">
+        <button id="langToggle" class="btn btn-outline"
+          style="padding: 0.4rem 0.8rem; font-size: 0.9rem; border-color: var(--glass-border); border-radius: var(--radius-sm); color: var(--text-main);">ML</button>
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+          <i class="ph ph-list"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 data-i18n="heroTitle1">Experience the Power of <br><span class="text-gradient">Worship & Grace</span></h1>
+          <p data-i18n="heroDesc">Join the Mahanaim Gospel Team. Let's impact the world through anointed music, powerful
+            outreach, and transformational community service.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary" data-i18n="heroJoinBtn">Join Our Mission <i
+                class="ph ph-arrow-right"></i></a>
+            <a href="#about" class="btn btn-outline" data-i18n="heroLearnBtn">Learn More</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="glass-panel">
+            <div class="stat-box">
+              <span class="stat-num text-gradient-alt">20+</span>
+              <span class="text-muted" data-i18n="statYears">Years of Ministry</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num text-gradient">250+</span>
+              <span class="text-muted" data-i18n="statEvents">Impactful Events</span>
+            </div>
+            <a href="https://maps.app.goo.gl/Bf3tqkgq58LdWEpx5" target="_blank" class="btn btn-outline"
+              style="width: 100%; margin-top: 1rem;" data-i18n="getDirectionsBtn">
+              <i class="ph ph-map-pin"></i> Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="aboutSectionTitle">Who We <span class="text-gradient">Are</span></h2>
+        <div class="cards-grid">
+          <div class="card">
+            <i class="ph ph-music-notes card-icon"></i>
+            <h3 data-i18n="aboutWorshipTitle">Worship & Music</h3>
+            <p class="text-muted" data-i18n="aboutWorshipDesc">Live worship sessions, dedicated choir training, and
+              collaborative gospel music projects aimed at spiritual elevation.</p>
+          </div>
+          <div class="card">
+            <i class="ph ph-globe-hemisphere-west card-icon"></i>
+            <h3 data-i18n="aboutGlobalTitle">Global Outreach</h3>
+            <p class="text-muted" data-i18n="aboutGlobalDesc">Gospel Ministries dedicated to spreading the message of
+              love and salvation around the nation and across borders.</p>
+          </div>
+          <div class="card">
+            <i class="ph ph-chalkboard-teacher card-icon"></i>
+            <h3 data-i18n="aboutTrainTitle">Spiritual Training</h3>
+            <p class="text-muted" data-i18n="aboutTrainDesc">Equipping the next generation of leaders. Preparing those
+              thirsty for truth to become men and women of God.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- YOUTUBE SECTION -->
+    <section id="youtube" class="section">
+      <div class="container text-center" style="max-width: 900px;">
+        <h2 class="section-title" data-i18n="ytSectionTitle">Watch Us <span class="text-gradient">Live</span></h2>
+        <p class="text-muted" data-i18n="ytDesc"
+          style="text-align: center; margin: -1.5rem auto 3rem; font-size: 1.1rem;">
+          Catch up on the latest worship sessions and events on our official YouTube channel!
+        </p>
+        <div class="glass-panel" style="padding: 1rem; border-radius: var(--radius-lg);">
+          <div
+            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius-md); background: rgba(0,0,0,0.3);">
+
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+              <div id="ytplayer"></div>
+            </div>
+
+            <!-- Creative Fallback UI -->
+            <div id="yt-fallback"
+              style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, rgba(138,43,226,0.15) 0%, transparent 70%); border: 1px dashed var(--glass-border); border-radius: var(--radius-md);">
+              <i class="ph ph-video-camera-slash"
+                style="font-size: 3.5rem; color: var(--text-muted); margin-bottom: 1rem; animation: pulseIcon 2.5s infinite;"></i>
+              <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;" data-i18n="ytOfflineTitle">Currently Offline</h3>
+              <p class="text-muted" data-i18n="ytOfflineDesc" style="max-width: 80%; margin: 0 auto;">No live broadcast
+                at the moment. Check our channel for latest content!</p>
+            </div>
+
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 2.5rem;">
+          <a href="https://www.youtube.com/@mahanaimgospelteam" target="_blank" class="btn btn-outline"
+            style="border-color: var(--color-accent); color: var(--color-accent);" data-i18n="ytSubBtn"><i
+              class="ph ph-youtube-logo" style="font-size: 1.2rem;"></i> Subscribe to our Channel</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="glass-panel contact-grid">
+          <!-- Using inline media query bypass via flex wrapper for simplicity, real media queries handle layout in CSS -->
+          <div class="contact-info" style="flex: 1; min-width: 300px;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;" data-i18n="contactSectionTitle">Let's <span
+                class="text-gradient">Connect</span></h2>
+            <p class="text-muted" style="margin-bottom: 2rem;" data-i18n="contactDesc">Have questions, prayer requests,
+              or want to join the
+              team? We'd love to hear from you!</p>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <div
+                  style="width: 50px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--color-primary);">
+                  <i class="ph ph-envelope-simple"></i>
+                </div>
+                <div>
+                  <h4 style="margin:0;" data-i18n="contactEmail">Email Us</h4>
+                  <a href="mailto:mahanaimgospelteam@gmail.com" class="text-muted">mahanaimgospelteam@gmail.com</a>
+                </div>
+              </div>
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <div
+                  style="width: 50px; height: 50px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--color-secondary);">
+                  <i class="ph ph-phone"></i>
+                </div>
+                <div>
+                  <h4 style="margin:0;" data-i18n="contactCall">Call Us</h4>
+                  <a href="tel:9496419741" class="text-muted">+91 94964 19741</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="contactForm" class="contact-form" style="flex: 1; min-width: 300px;">
+            <div class="form-group">
+              <label data-i18n="formName">Your Name</label>
+              <input type="text" class="form-control" id="cf-name" name="name" placeholder="John Doe" required
+                data-i18n="formName">
+            </div>
+            <div class="form-group">
+              <label data-i18n="formEmail">Email Address</label>
+              <input type="email" class="form-control" id="cf-email" name="email" placeholder="john@example.com"
+                required data-i18n="formEmail">
+            </div>
+            <div class="form-group">
+              <label data-i18n="formMessage">Message</label>
+              <textarea class="form-control" id="cf-message" name="message" rows="4" placeholder="How can we help?"
+                required data-i18n="formMessage"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="formSendBtn">Send Message <i
+                class="ph ph-paper-plane-right"></i></button>
+            <div id="formStatus" style="margin-top: 1rem; font-weight: 500; text-align: center;"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <h3 style="margin-bottom: 0;"><span data-i18n="brandMahanaim">Mahanaim</span> Gospel <span
+            data-i18n="brandTeam">Team</span></h3>
+        <p class="text-muted" style="margin-top: 0.5rem;" data-i18n="footerTagline">Worship • Outreach • Community</p>
+      </div>
+
+      <div class="social-links">
+        <a href="https://www.youtube.com/@mahanaimgospelteam" target="_blank" aria-label="YouTube"><i
+            class="ph ph-youtube-logo"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+
+  <script>
+    // Header Scroll Effect & Mobile Nav
+    const header = document.querySelector('.site-header');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('mainNav');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(5, 5, 15, 0.9)';
+        header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
+      } else {
+        header.style.background = 'rgba(5, 5, 15, 0.4)';
+        header.style.boxShadow = 'none';
+      }
+    });
+
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+  <script>
+    // YouTube API Integration for error handling
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var ytPlayer;
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('ytplayer', {
+        height: '100%',
+        width: '100%',
+        playerVars: {
+          listType: 'user_uploads',
+          list: 'mahanaimgospelteam'
+        },
+        events: {
+          'onError': onPlayerError
+        }
+      });
+    }
+
+    function onPlayerError(event) {
+      // Hide the iframe wrapper
+      const ytcontainer = document.getElementById('ytplayer');
+      if (ytcontainer) ytcontainer.style.display = 'none';
+
+      // Show creative fallback
+      const fallback = document.getElementById('yt-fallback');
+      if (fallback) {
+        fallback.style.display = 'flex';
+        // Minor intro animation
+        fallback.style.opacity = '0';
+        fallback.style.transition = 'opacity 0.8s';
+        setTimeout(() => fallback.style.opacity = '1', 50);
+      }
+
+      // Ensure translations hit the new elements if loaded late
+      if (typeof setLanguage === 'function') {
+        const lang = localStorage.getItem('mahanaim_lang') || 'en';
+        setLanguage(lang);
+      }
+    }
+  </script>
+
+</body>
+
+</html>

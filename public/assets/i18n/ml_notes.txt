@@ -1,0 +1,10 @@
+ml_notes.txt
+------------
+This file explains the Malayalam translation JSON (ml.json).
+
+- Purpose: same as en.json but contains Malayalam translations.
+- If you refine Malayalam phrasing, update the ml.json file.
+
+- Translator notes:
+  * Keep values short when used for buttons or nav items.
+  * Ensure special characters (Unicode) are preserved - files must be UTF-8 encoded.
